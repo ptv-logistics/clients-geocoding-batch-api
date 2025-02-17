@@ -41,7 +41,7 @@ import com.ptvgroup.developer.client.geocoding.batch.ApiClient;
   LocationProperties.JSON_PROPERTY_ADDRESS,
   LocationProperties.JSON_PROPERTY_FORMATTED_ADDRESS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-12-12T08:17:29.609136013Z[Etc/UTC]", comments = "Generator version: 7.8.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-17T10:15:54.432066314Z[Etc/UTC]", comments = "Generator version: 7.8.0")
 public class LocationProperties {
   public static final String JSON_PROPERTY_REFERENCE_POSITION = "referencePosition";
   private ReferencePosition referencePosition;

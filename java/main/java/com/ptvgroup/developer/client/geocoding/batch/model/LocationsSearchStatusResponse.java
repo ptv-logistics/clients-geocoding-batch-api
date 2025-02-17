@@ -37,7 +37,7 @@ import com.ptvgroup.developer.client.geocoding.batch.ApiClient;
   LocationsSearchStatusResponse.JSON_PROPERTY_STATUS,
   LocationsSearchStatusResponse.JSON_PROPERTY_PROGRESS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-12-12T08:17:29.609136013Z[Etc/UTC]", comments = "Generator version: 7.8.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-17T10:15:54.432066314Z[Etc/UTC]", comments = "Generator version: 7.8.0")
 public class LocationsSearchStatusResponse {
   public static final String JSON_PROPERTY_STATUS = "status";
   private Status status;
