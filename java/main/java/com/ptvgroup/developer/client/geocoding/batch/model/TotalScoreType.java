@@ -26,21 +26,17 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * The status of the geocoding request.
+ * Enumeration to specify the type of total score calculation.    * &#x60;INPUT_AND_RESULT_BASED&#x60; - The total score is calculated by comparing the result against the input.    * &#x60;RESULT_BASED&#x60; - The total score is calculated by classifying result attributes.      This parameter is experimental and may change at any time in the future.
  */
-public enum Status {
+public enum TotalScoreType {
   
-  PENDING("PENDING"),
+  INPUT_AND_RESULT_BASED("INPUT_AND_RESULT_BASED"),
   
-  PROCESSING("PROCESSING"),
-  
-  COMPLETED("COMPLETED"),
-  
-  FAILED("FAILED");
+  RESULT_BASED("RESULT_BASED");
 
   private String value;
 
-  Status(String value) {
+  TotalScoreType(String value) {
     this.value = value;
   }
 
@@ -55,8 +51,8 @@ public enum Status {
   }
 
   @JsonCreator
-  public static Status fromValue(String value) {
-    for (Status b : Status.values()) {
+  public static TotalScoreType fromValue(String value) {
+    for (TotalScoreType b : TotalScoreType.values()) {
       if (b.value.equals(value)) {
         return b;
       }
