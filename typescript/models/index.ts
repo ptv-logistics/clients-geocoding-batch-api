@@ -20,4 +20,5 @@ export * from './ReferencePosition';
 export * from './RoadAccessPosition';
 export * from './Status';
 export * from './TextsRequest';
+export * from './TotalScoreType';
 export * from './Warning';
