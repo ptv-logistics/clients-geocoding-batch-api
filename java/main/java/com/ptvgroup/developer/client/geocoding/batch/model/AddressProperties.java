@@ -40,7 +40,7 @@ import com.ptvgroup.developer.client.geocoding.batch.ApiClient;
   AddressProperties.JSON_PROPERTY_STREET,
   AddressProperties.JSON_PROPERTY_HOUSE_NUMBER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-09-25T07:59:40.233511549Z[Etc/UTC]", comments = "Generator version: 7.8.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-10-27T10:23:49.716906276Z[Etc/UTC]", comments = "Generator version: 7.8.0")
 public class AddressProperties {
   public static final String JSON_PROPERTY_COUNTRY = "country";
   private String country;

@@ -37,7 +37,7 @@ import com.ptvgroup.developer.client.geocoding.batch.ApiClient;
 @JsonPropertyOrder({
   TextsRequest.JSON_PROPERTY_TEXTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-09-25T07:59:40.233511549Z[Etc/UTC]", comments = "Generator version: 7.8.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-10-27T10:23:49.716906276Z[Etc/UTC]", comments = "Generator version: 7.8.0")
 public class TextsRequest {
   public static final String JSON_PROPERTY_TEXTS = "texts";
   private List<String> texts;
