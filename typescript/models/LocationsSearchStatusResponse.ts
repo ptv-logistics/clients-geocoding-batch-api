@@ -18,6 +18,7 @@ import {
     StatusFromJSON,
     StatusFromJSONTyped,
     StatusToJSON,
+    StatusToJSONTyped,
 } from './Status';
 
 /**
@@ -66,10 +67,15 @@ export function LocationsSearchStatusResponseFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function LocationsSearchStatusResponseToJSON(value?: LocationsSearchStatusResponse | null): any {
+export function LocationsSearchStatusResponseToJSON(json: any): LocationsSearchStatusResponse {
+    return LocationsSearchStatusResponseToJSONTyped(json, false);
+}
+
+export function LocationsSearchStatusResponseToJSONTyped(value?: LocationsSearchStatusResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'status': StatusToJSON(value['status']),

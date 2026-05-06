@@ -12,36 +12,47 @@
  * Do not edit the class manually.
  */
 
-
 import * as runtime from '../runtime';
-import type {
-  AddressesRequest,
-  ErrorResponse,
-  IdResponse,
-  LocationsSearchResponse,
-  LocationsSearchStatusResponse,
-  PositionsRequest,
-  TextsRequest,
-  TotalScoreType,
-} from '../models/index';
 import {
+    type AddressesRequest,
     AddressesRequestFromJSON,
     AddressesRequestToJSON,
+} from '../models/AddressesRequest';
+import {
+    type ErrorResponse,
     ErrorResponseFromJSON,
     ErrorResponseToJSON,
+} from '../models/ErrorResponse';
+import {
+    type IdResponse,
     IdResponseFromJSON,
     IdResponseToJSON,
+} from '../models/IdResponse';
+import {
+    type LocationsSearchResponse,
     LocationsSearchResponseFromJSON,
     LocationsSearchResponseToJSON,
+} from '../models/LocationsSearchResponse';
+import {
+    type LocationsSearchStatusResponse,
     LocationsSearchStatusResponseFromJSON,
     LocationsSearchStatusResponseToJSON,
+} from '../models/LocationsSearchStatusResponse';
+import {
+    type PositionsRequest,
     PositionsRequestFromJSON,
     PositionsRequestToJSON,
+} from '../models/PositionsRequest';
+import {
+    type TextsRequest,
     TextsRequestFromJSON,
     TextsRequestToJSON,
+} from '../models/TextsRequest';
+import {
+    type TotalScoreType,
     TotalScoreTypeFromJSON,
     TotalScoreTypeToJSON,
-} from '../models/index';
+} from '../models/TotalScoreType';
 
 export interface CreateLocationsByAddressesRequest {
     addressesRequest: AddressesRequest;
@@ -105,9 +116,9 @@ export interface GetLocationsByTextsStatusRequest {
 export class LocationsApi extends runtime.BaseAPI {
 
     /**
-     * Creates a search request for locations based on a list of structured address inputs.
+     * Creates request options for createLocationsByAddresses without sending the request
      */
-    async createLocationsByAddressesRaw(requestParameters: CreateLocationsByAddressesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<IdResponse>> {
+    async createLocationsByAddressesRequestOpts(requestParameters: CreateLocationsByAddressesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['addressesRequest'] == null) {
             throw new runtime.RequiredError(
                 'addressesRequest',
@@ -137,13 +148,24 @@ export class LocationsApi extends runtime.BaseAPI {
             headerParameters["apiKey"] = await this.configuration.apiKey("apiKey"); // apiKeyAuth authentication
         }
 
-        const response = await this.request({
-            path: `/locations/by-addresses`,
+
+        let urlPath = `/locations/by-addresses`;
+
+        return {
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
             body: AddressesRequestToJSON(requestParameters['addressesRequest']),
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Creates a search request for locations based on a list of structured address inputs.
+     */
+    async createLocationsByAddressesRaw(requestParameters: CreateLocationsByAddressesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<IdResponse>> {
+        const requestOptions = await this.createLocationsByAddressesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => IdResponseFromJSON(jsonValue));
     }
@@ -157,9 +179,9 @@ export class LocationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates a search request for locations based on a list of positions.
+     * Creates request options for createLocationsByPositions without sending the request
      */
-    async createLocationsByPositionsRaw(requestParameters: CreateLocationsByPositionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<IdResponse>> {
+    async createLocationsByPositionsRequestOpts(requestParameters: CreateLocationsByPositionsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['positionsRequest'] == null) {
             throw new runtime.RequiredError(
                 'positionsRequest',
@@ -185,13 +207,24 @@ export class LocationsApi extends runtime.BaseAPI {
             headerParameters["apiKey"] = await this.configuration.apiKey("apiKey"); // apiKeyAuth authentication
         }
 
-        const response = await this.request({
-            path: `/locations/by-positions`,
+
+        let urlPath = `/locations/by-positions`;
+
+        return {
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
             body: PositionsRequestToJSON(requestParameters['positionsRequest']),
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Creates a search request for locations based on a list of positions.
+     */
+    async createLocationsByPositionsRaw(requestParameters: CreateLocationsByPositionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<IdResponse>> {
+        const requestOptions = await this.createLocationsByPositionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => IdResponseFromJSON(jsonValue));
     }
@@ -205,9 +238,9 @@ export class LocationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates a search request for locations based on a list of single-field text inputs.
+     * Creates request options for createLocationsByTexts without sending the request
      */
-    async createLocationsByTextsRaw(requestParameters: CreateLocationsByTextsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<IdResponse>> {
+    async createLocationsByTextsRequestOpts(requestParameters: CreateLocationsByTextsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['textsRequest'] == null) {
             throw new runtime.RequiredError(
                 'textsRequest',
@@ -237,13 +270,24 @@ export class LocationsApi extends runtime.BaseAPI {
             headerParameters["apiKey"] = await this.configuration.apiKey("apiKey"); // apiKeyAuth authentication
         }
 
-        const response = await this.request({
-            path: `/locations/by-texts`,
+
+        let urlPath = `/locations/by-texts`;
+
+        return {
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
             body: TextsRequestToJSON(requestParameters['textsRequest']),
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Creates a search request for locations based on a list of single-field text inputs.
+     */
+    async createLocationsByTextsRaw(requestParameters: CreateLocationsByTextsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<IdResponse>> {
+        const requestOptions = await this.createLocationsByTextsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => IdResponseFromJSON(jsonValue));
     }
@@ -257,9 +301,9 @@ export class LocationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deletes the results of a locations search based on a list of structured address inputs.
+     * Creates request options for deleteLocationsByAddresses without sending the request
      */
-    async deleteLocationsByAddressesRaw(requestParameters: DeleteLocationsByAddressesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async deleteLocationsByAddressesRequestOpts(requestParameters: DeleteLocationsByAddressesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
@@ -275,12 +319,24 @@ export class LocationsApi extends runtime.BaseAPI {
             headerParameters["apiKey"] = await this.configuration.apiKey("apiKey"); // apiKeyAuth authentication
         }
 
-        const response = await this.request({
-            path: `/locations/by-addresses/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+
+        let urlPath = `/locations/by-addresses/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Deletes the results of a locations search based on a list of structured address inputs.
+     */
+    async deleteLocationsByAddressesRaw(requestParameters: DeleteLocationsByAddressesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteLocationsByAddressesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -293,9 +349,9 @@ export class LocationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deletes the results of a locations search based on a list of positions.
+     * Creates request options for deleteLocationsByPositions without sending the request
      */
-    async deleteLocationsByPositionsRaw(requestParameters: DeleteLocationsByPositionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async deleteLocationsByPositionsRequestOpts(requestParameters: DeleteLocationsByPositionsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
@@ -311,12 +367,24 @@ export class LocationsApi extends runtime.BaseAPI {
             headerParameters["apiKey"] = await this.configuration.apiKey("apiKey"); // apiKeyAuth authentication
         }
 
-        const response = await this.request({
-            path: `/locations/by-positions/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+
+        let urlPath = `/locations/by-positions/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Deletes the results of a locations search based on a list of positions.
+     */
+    async deleteLocationsByPositionsRaw(requestParameters: DeleteLocationsByPositionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteLocationsByPositionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -329,9 +397,9 @@ export class LocationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deletes the results of a locations search based on a list of single-field text inputs.
+     * Creates request options for deleteLocationsByTexts without sending the request
      */
-    async deleteLocationsByTextsRaw(requestParameters: DeleteLocationsByTextsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async deleteLocationsByTextsRequestOpts(requestParameters: DeleteLocationsByTextsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
@@ -347,12 +415,24 @@ export class LocationsApi extends runtime.BaseAPI {
             headerParameters["apiKey"] = await this.configuration.apiKey("apiKey"); // apiKeyAuth authentication
         }
 
-        const response = await this.request({
-            path: `/locations/by-texts/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+
+        let urlPath = `/locations/by-texts/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Deletes the results of a locations search based on a list of single-field text inputs.
+     */
+    async deleteLocationsByTextsRaw(requestParameters: DeleteLocationsByTextsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteLocationsByTextsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -365,9 +445,9 @@ export class LocationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves the results of a locations search based on a list of structured address inputs.
+     * Creates request options for getLocationsByAddresses without sending the request
      */
-    async getLocationsByAddressesRaw(requestParameters: GetLocationsByAddressesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LocationsSearchResponse>> {
+    async getLocationsByAddressesRequestOpts(requestParameters: GetLocationsByAddressesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
@@ -383,12 +463,24 @@ export class LocationsApi extends runtime.BaseAPI {
             headerParameters["apiKey"] = await this.configuration.apiKey("apiKey"); // apiKeyAuth authentication
         }
 
-        const response = await this.request({
-            path: `/locations/by-addresses/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+
+        let urlPath = `/locations/by-addresses/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Retrieves the results of a locations search based on a list of structured address inputs.
+     */
+    async getLocationsByAddressesRaw(requestParameters: GetLocationsByAddressesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LocationsSearchResponse>> {
+        const requestOptions = await this.getLocationsByAddressesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => LocationsSearchResponseFromJSON(jsonValue));
     }
@@ -402,9 +494,9 @@ export class LocationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves the status of a locations search based on a list of structured address inputs.
+     * Creates request options for getLocationsByAddressesStatus without sending the request
      */
-    async getLocationsByAddressesStatusRaw(requestParameters: GetLocationsByAddressesStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LocationsSearchStatusResponse>> {
+    async getLocationsByAddressesStatusRequestOpts(requestParameters: GetLocationsByAddressesStatusRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
@@ -420,12 +512,24 @@ export class LocationsApi extends runtime.BaseAPI {
             headerParameters["apiKey"] = await this.configuration.apiKey("apiKey"); // apiKeyAuth authentication
         }
 
-        const response = await this.request({
-            path: `/locations/by-addresses/{id}/status`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+
+        let urlPath = `/locations/by-addresses/{id}/status`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Retrieves the status of a locations search based on a list of structured address inputs.
+     */
+    async getLocationsByAddressesStatusRaw(requestParameters: GetLocationsByAddressesStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LocationsSearchStatusResponse>> {
+        const requestOptions = await this.getLocationsByAddressesStatusRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => LocationsSearchStatusResponseFromJSON(jsonValue));
     }
@@ -439,9 +543,9 @@ export class LocationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves the results of a locations search based on a list of positions.
+     * Creates request options for getLocationsByPositions without sending the request
      */
-    async getLocationsByPositionsRaw(requestParameters: GetLocationsByPositionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LocationsSearchResponse>> {
+    async getLocationsByPositionsRequestOpts(requestParameters: GetLocationsByPositionsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
@@ -457,12 +561,24 @@ export class LocationsApi extends runtime.BaseAPI {
             headerParameters["apiKey"] = await this.configuration.apiKey("apiKey"); // apiKeyAuth authentication
         }
 
-        const response = await this.request({
-            path: `/locations/by-positions/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+
+        let urlPath = `/locations/by-positions/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Retrieves the results of a locations search based on a list of positions.
+     */
+    async getLocationsByPositionsRaw(requestParameters: GetLocationsByPositionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LocationsSearchResponse>> {
+        const requestOptions = await this.getLocationsByPositionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => LocationsSearchResponseFromJSON(jsonValue));
     }
@@ -476,9 +592,9 @@ export class LocationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves the status of a locations search based on a list of positions.
+     * Creates request options for getLocationsByPositionsStatus without sending the request
      */
-    async getLocationsByPositionsStatusRaw(requestParameters: GetLocationsByPositionsStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LocationsSearchStatusResponse>> {
+    async getLocationsByPositionsStatusRequestOpts(requestParameters: GetLocationsByPositionsStatusRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
@@ -494,12 +610,24 @@ export class LocationsApi extends runtime.BaseAPI {
             headerParameters["apiKey"] = await this.configuration.apiKey("apiKey"); // apiKeyAuth authentication
         }
 
-        const response = await this.request({
-            path: `/locations/by-positions/{id}/status`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+
+        let urlPath = `/locations/by-positions/{id}/status`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Retrieves the status of a locations search based on a list of positions.
+     */
+    async getLocationsByPositionsStatusRaw(requestParameters: GetLocationsByPositionsStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LocationsSearchStatusResponse>> {
+        const requestOptions = await this.getLocationsByPositionsStatusRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => LocationsSearchStatusResponseFromJSON(jsonValue));
     }
@@ -513,9 +641,9 @@ export class LocationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves the results of a locations search based on a list of single-field text inputs.
+     * Creates request options for getLocationsByTexts without sending the request
      */
-    async getLocationsByTextsRaw(requestParameters: GetLocationsByTextsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LocationsSearchResponse>> {
+    async getLocationsByTextsRequestOpts(requestParameters: GetLocationsByTextsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
@@ -531,12 +659,24 @@ export class LocationsApi extends runtime.BaseAPI {
             headerParameters["apiKey"] = await this.configuration.apiKey("apiKey"); // apiKeyAuth authentication
         }
 
-        const response = await this.request({
-            path: `/locations/by-texts/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+
+        let urlPath = `/locations/by-texts/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Retrieves the results of a locations search based on a list of single-field text inputs.
+     */
+    async getLocationsByTextsRaw(requestParameters: GetLocationsByTextsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LocationsSearchResponse>> {
+        const requestOptions = await this.getLocationsByTextsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => LocationsSearchResponseFromJSON(jsonValue));
     }
@@ -550,9 +690,9 @@ export class LocationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves the status of a locations search based on a list of single-field text inputs.
+     * Creates request options for getLocationsByTextsStatus without sending the request
      */
-    async getLocationsByTextsStatusRaw(requestParameters: GetLocationsByTextsStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LocationsSearchStatusResponse>> {
+    async getLocationsByTextsStatusRequestOpts(requestParameters: GetLocationsByTextsStatusRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
@@ -568,12 +708,24 @@ export class LocationsApi extends runtime.BaseAPI {
             headerParameters["apiKey"] = await this.configuration.apiKey("apiKey"); // apiKeyAuth authentication
         }
 
-        const response = await this.request({
-            path: `/locations/by-texts/{id}/status`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+
+        let urlPath = `/locations/by-texts/{id}/status`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Retrieves the status of a locations search based on a list of single-field text inputs.
+     */
+    async getLocationsByTextsStatusRaw(requestParameters: GetLocationsByTextsStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LocationsSearchStatusResponse>> {
+        const requestOptions = await this.getLocationsByTextsStatusRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => LocationsSearchStatusResponseFromJSON(jsonValue));
     }

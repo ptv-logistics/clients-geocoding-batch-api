@@ -18,6 +18,7 @@ import {
     LocationsSearchResultFromJSON,
     LocationsSearchResultFromJSONTyped,
     LocationsSearchResultToJSON,
+    LocationsSearchResultToJSONTyped,
 } from './LocationsSearchResult';
 
 /**
@@ -56,10 +57,15 @@ export function LocationsSearchResponseFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function LocationsSearchResponseToJSON(value?: LocationsSearchResponse | null): any {
+export function LocationsSearchResponseToJSON(json: any): LocationsSearchResponse {
+    return LocationsSearchResponseToJSONTyped(json, false);
+}
+
+export function LocationsSearchResponseToJSONTyped(value?: LocationsSearchResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'results': ((value['results'] as Array<any>).map(LocationsSearchResultToJSON)),

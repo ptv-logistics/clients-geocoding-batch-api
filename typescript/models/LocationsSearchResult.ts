@@ -18,18 +18,21 @@ import {
     WarningFromJSON,
     WarningFromJSONTyped,
     WarningToJSON,
+    WarningToJSONTyped,
 } from './Warning';
 import type { ErrorResponse } from './ErrorResponse';
 import {
     ErrorResponseFromJSON,
     ErrorResponseFromJSONTyped,
     ErrorResponseToJSON,
+    ErrorResponseToJSONTyped,
 } from './ErrorResponse';
 import type { Location } from './Location';
 import {
     LocationFromJSON,
     LocationFromJSONTyped,
     LocationToJSON,
+    LocationToJSONTyped,
 } from './Location';
 
 /**
@@ -81,10 +84,15 @@ export function LocationsSearchResultFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function LocationsSearchResultToJSON(value?: LocationsSearchResult | null): any {
+export function LocationsSearchResultToJSON(json: any): LocationsSearchResult {
+    return LocationsSearchResultToJSONTyped(json, false);
+}
+
+export function LocationsSearchResultToJSONTyped(value?: LocationsSearchResult | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'locations': value['locations'] == null ? undefined : ((value['locations'] as Array<any>).map(LocationToJSON)),

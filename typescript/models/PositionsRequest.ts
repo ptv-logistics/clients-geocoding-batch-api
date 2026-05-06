@@ -18,6 +18,7 @@ import {
     PositionFromJSON,
     PositionFromJSONTyped,
     PositionToJSON,
+    PositionToJSONTyped,
 } from './Position';
 
 /**
@@ -56,10 +57,15 @@ export function PositionsRequestFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function PositionsRequestToJSON(value?: PositionsRequest | null): any {
+export function PositionsRequestToJSON(json: any): PositionsRequest {
+    return PositionsRequestToJSONTyped(json, false);
+}
+
+export function PositionsRequestToJSONTyped(value?: PositionsRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'positions': ((value['positions'] as Array<any>).map(PositionToJSON)),

@@ -49,10 +49,15 @@ export function TextsRequestFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function TextsRequestToJSON(value?: TextsRequest | null): any {
+export function TextsRequestToJSON(json: any): TextsRequest {
+    return TextsRequestToJSONTyped(json, false);
+}
+
+export function TextsRequestToJSONTyped(value?: TextsRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'texts': value['texts'],

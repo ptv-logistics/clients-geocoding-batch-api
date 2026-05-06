@@ -18,6 +18,7 @@ import {
     AddressPropertiesFromJSON,
     AddressPropertiesFromJSONTyped,
     AddressPropertiesToJSON,
+    AddressPropertiesToJSONTyped,
 } from './AddressProperties';
 
 /**
@@ -56,10 +57,15 @@ export function AddressesRequestFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function AddressesRequestToJSON(value?: AddressesRequest | null): any {
+export function AddressesRequestToJSON(json: any): AddressesRequest {
+    return AddressesRequestToJSONTyped(json, false);
+}
+
+export function AddressesRequestToJSONTyped(value?: AddressesRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'addresses': ((value['addresses'] as Array<any>).map(AddressPropertiesToJSON)),

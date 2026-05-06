@@ -83,10 +83,15 @@ export function AddressPropertiesFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function AddressPropertiesToJSON(value?: AddressProperties | null): any {
+export function AddressPropertiesToJSON(json: any): AddressProperties {
+    return AddressPropertiesToJSONTyped(json, false);
+}
+
+export function AddressPropertiesToJSONTyped(value?: AddressProperties | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'country': value['country'],

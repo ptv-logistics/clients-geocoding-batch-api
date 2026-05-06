@@ -49,3 +49,7 @@ export function StatusToJSON(value?: Status | null): any {
     return value as any;
 }
 
+export function StatusToJSONTyped(value: any, ignoreDiscriminator: boolean): Status {
+    return value as Status;
+}
+

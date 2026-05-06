@@ -57,10 +57,15 @@ export function PositionFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
     };
 }
 
-export function PositionToJSON(value?: Position | null): any {
+export function PositionToJSON(json: any): Position {
+    return PositionToJSONTyped(json, false);
+}
+
+export function PositionToJSONTyped(value?: Position | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'latitude': value['latitude'],
