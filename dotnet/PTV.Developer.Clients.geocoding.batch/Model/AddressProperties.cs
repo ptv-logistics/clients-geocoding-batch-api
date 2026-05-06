@@ -40,7 +40,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Model
         /// <param name="postalCode">The postal code, or zip-code, which is used by a postal authority of a country to identify where the address is located..</param>
         /// <param name="street">The name of the road where the address is located. It must not contain additional information like building names, floor numbers or apartment numbers. It may contain a house number, but using the **houseNumber** field instead will lead to better results..</param>
         /// <param name="houseNumber">The house number of the address..</param>
-        public AddressProperties(string country = default(string), string state = default(string), string locality = default(string), string postalCode = default(string), string street = default(string), string houseNumber = default(string))
+        public AddressProperties(string country = default, string state = default, string locality = default, string postalCode = default, string street = default, string houseNumber = default)
         {
             this.Country = country;
             this.State = state;

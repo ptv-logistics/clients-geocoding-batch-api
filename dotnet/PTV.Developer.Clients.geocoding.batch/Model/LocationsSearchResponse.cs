@@ -40,7 +40,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Model
         /// Initializes a new instance of the <see cref="LocationsSearchResponse" /> class.
         /// </summary>
         /// <param name="results">The results of a single locations search. (required).</param>
-        public LocationsSearchResponse(List<LocationsSearchResult> results = default(List<LocationsSearchResult>))
+        public LocationsSearchResponse(List<LocationsSearchResult> results = default)
         {
             // to ensure "results" is required (not null)
             if (results == null)

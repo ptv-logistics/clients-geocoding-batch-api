@@ -40,7 +40,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Model
         /// Initializes a new instance of the <see cref="PositionsRequest" /> class.
         /// </summary>
         /// <param name="positions">List of geographical positions for which to find the nearest location. (required).</param>
-        public PositionsRequest(List<Position> positions = default(List<Position>))
+        public PositionsRequest(List<Position> positions = default)
         {
             // to ensure "positions" is required (not null)
             if (positions == null)

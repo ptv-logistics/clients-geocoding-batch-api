@@ -40,7 +40,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Model
         /// Initializes a new instance of the <see cref="IdResponse" /> class.
         /// </summary>
         /// <param name="id">The id of the geocoding request. (required).</param>
-        public IdResponse(Guid? id = default(Guid?))
+        public IdResponse(Guid? id = default)
         {
             // to ensure "id" is required (not null)
             if (id == null)

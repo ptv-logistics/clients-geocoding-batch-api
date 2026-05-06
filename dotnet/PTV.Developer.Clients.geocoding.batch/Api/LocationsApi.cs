@@ -39,7 +39,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="totalScoreType">Defines how Location.quality.totalScore is calculated.    * &#x60;INPUT_AND_RESULT_BASED&#x60; - The total score is calculated by comparing the result against the input.    * &#x60;RESULT_BASED&#x60; - The total score is calculated by classifying result attributes.      This parameter is experimental and may change at any time in the future. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>IdResponse</returns>
-        IdResponse CreateLocationsByAddresses(AddressesRequest addressesRequest, List<string> countryFilter = default(List<string>), string language = default(string), TotalScoreType? totalScoreType = default(TotalScoreType?), int operationIndex = 0);
+        IdResponse CreateLocationsByAddresses(AddressesRequest addressesRequest, List<string> countryFilter = default, string language = default, TotalScoreType? totalScoreType = default, int operationIndex = 0);
 
         /// <summary>
         /// 
@@ -54,7 +54,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="totalScoreType">Defines how Location.quality.totalScore is calculated.    * &#x60;INPUT_AND_RESULT_BASED&#x60; - The total score is calculated by comparing the result against the input.    * &#x60;RESULT_BASED&#x60; - The total score is calculated by classifying result attributes.      This parameter is experimental and may change at any time in the future. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of IdResponse</returns>
-        ApiResponse<IdResponse> CreateLocationsByAddressesWithHttpInfo(AddressesRequest addressesRequest, List<string> countryFilter = default(List<string>), string language = default(string), TotalScoreType? totalScoreType = default(TotalScoreType?), int operationIndex = 0);
+        ApiResponse<IdResponse> CreateLocationsByAddressesWithHttpInfo(AddressesRequest addressesRequest, List<string> countryFilter = default, string language = default, TotalScoreType? totalScoreType = default, int operationIndex = 0);
         /// <summary>
         /// 
         /// </summary>
@@ -67,7 +67,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="minimumPopulation">If specified, the response contains only the nearest city or town with at least the given population. The **locationType** of this result will be _LOCALITY_, street information will not be returned.  This parameter is in an experimental state and may change at any time. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>IdResponse</returns>
-        IdResponse CreateLocationsByPositions(PositionsRequest positionsRequest, string language = default(string), int? minimumPopulation = default(int?), int operationIndex = 0);
+        IdResponse CreateLocationsByPositions(PositionsRequest positionsRequest, string language = default, int? minimumPopulation = default, int operationIndex = 0);
 
         /// <summary>
         /// 
@@ -81,7 +81,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="minimumPopulation">If specified, the response contains only the nearest city or town with at least the given population. The **locationType** of this result will be _LOCALITY_, street information will not be returned.  This parameter is in an experimental state and may change at any time. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of IdResponse</returns>
-        ApiResponse<IdResponse> CreateLocationsByPositionsWithHttpInfo(PositionsRequest positionsRequest, string language = default(string), int? minimumPopulation = default(int?), int operationIndex = 0);
+        ApiResponse<IdResponse> CreateLocationsByPositionsWithHttpInfo(PositionsRequest positionsRequest, string language = default, int? minimumPopulation = default, int operationIndex = 0);
         /// <summary>
         /// 
         /// </summary>
@@ -95,7 +95,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="cleanInput">If set to &#x60;true&#x60;, the service will try (for certain countries) to clean the input in a pre-processing step. This helps to expedite processing if the input is a free-form text that may contain garbage. This flag may influence the scores in the response. For more details see the corresponding [concept](./concepts/clean-input).      This parameter is experimental and may change at any time in the future. (optional, default to false)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>IdResponse</returns>
-        IdResponse CreateLocationsByTexts(TextsRequest textsRequest, List<string> countryFilter = default(List<string>), string language = default(string), bool? cleanInput = default(bool?), int operationIndex = 0);
+        IdResponse CreateLocationsByTexts(TextsRequest textsRequest, List<string> countryFilter = default, string language = default, bool? cleanInput = default, int operationIndex = 0);
 
         /// <summary>
         /// 
@@ -110,7 +110,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="cleanInput">If set to &#x60;true&#x60;, the service will try (for certain countries) to clean the input in a pre-processing step. This helps to expedite processing if the input is a free-form text that may contain garbage. This flag may influence the scores in the response. For more details see the corresponding [concept](./concepts/clean-input).      This parameter is experimental and may change at any time in the future. (optional, default to false)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of IdResponse</returns>
-        ApiResponse<IdResponse> CreateLocationsByTextsWithHttpInfo(TextsRequest textsRequest, List<string> countryFilter = default(List<string>), string language = default(string), bool? cleanInput = default(bool?), int operationIndex = 0);
+        ApiResponse<IdResponse> CreateLocationsByTextsWithHttpInfo(TextsRequest textsRequest, List<string> countryFilter = default, string language = default, bool? cleanInput = default, int operationIndex = 0);
         /// <summary>
         /// 
         /// </summary>
@@ -341,7 +341,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of IdResponse</returns>
-        System.Threading.Tasks.Task<IdResponse> CreateLocationsByAddressesAsync(AddressesRequest addressesRequest, List<string> countryFilter = default(List<string>), string language = default(string), TotalScoreType? totalScoreType = default(TotalScoreType?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<IdResponse> CreateLocationsByAddressesAsync(AddressesRequest addressesRequest, List<string> countryFilter = default, string language = default, TotalScoreType? totalScoreType = default, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 
@@ -357,7 +357,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (IdResponse)</returns>
-        System.Threading.Tasks.Task<ApiResponse<IdResponse>> CreateLocationsByAddressesWithHttpInfoAsync(AddressesRequest addressesRequest, List<string> countryFilter = default(List<string>), string language = default(string), TotalScoreType? totalScoreType = default(TotalScoreType?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<IdResponse>> CreateLocationsByAddressesWithHttpInfoAsync(AddressesRequest addressesRequest, List<string> countryFilter = default, string language = default, TotalScoreType? totalScoreType = default, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// 
         /// </summary>
@@ -371,7 +371,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of IdResponse</returns>
-        System.Threading.Tasks.Task<IdResponse> CreateLocationsByPositionsAsync(PositionsRequest positionsRequest, string language = default(string), int? minimumPopulation = default(int?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<IdResponse> CreateLocationsByPositionsAsync(PositionsRequest positionsRequest, string language = default, int? minimumPopulation = default, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 
@@ -386,7 +386,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (IdResponse)</returns>
-        System.Threading.Tasks.Task<ApiResponse<IdResponse>> CreateLocationsByPositionsWithHttpInfoAsync(PositionsRequest positionsRequest, string language = default(string), int? minimumPopulation = default(int?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<IdResponse>> CreateLocationsByPositionsWithHttpInfoAsync(PositionsRequest positionsRequest, string language = default, int? minimumPopulation = default, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// 
         /// </summary>
@@ -401,7 +401,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of IdResponse</returns>
-        System.Threading.Tasks.Task<IdResponse> CreateLocationsByTextsAsync(TextsRequest textsRequest, List<string> countryFilter = default(List<string>), string language = default(string), bool? cleanInput = default(bool?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<IdResponse> CreateLocationsByTextsAsync(TextsRequest textsRequest, List<string> countryFilter = default, string language = default, bool? cleanInput = default, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 
@@ -417,7 +417,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (IdResponse)</returns>
-        System.Threading.Tasks.Task<ApiResponse<IdResponse>> CreateLocationsByTextsWithHttpInfoAsync(TextsRequest textsRequest, List<string> countryFilter = default(List<string>), string language = default(string), bool? cleanInput = default(bool?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<IdResponse>> CreateLocationsByTextsWithHttpInfoAsync(TextsRequest textsRequest, List<string> countryFilter = default, string language = default, bool? cleanInput = default, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// 
         /// </summary>
@@ -429,7 +429,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task DeleteLocationsByAddressesAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task DeleteLocationsByAddressesAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 
@@ -442,7 +442,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteLocationsByAddressesWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteLocationsByAddressesWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// 
         /// </summary>
@@ -454,7 +454,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task DeleteLocationsByPositionsAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task DeleteLocationsByPositionsAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 
@@ -467,7 +467,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteLocationsByPositionsWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteLocationsByPositionsWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// 
         /// </summary>
@@ -479,7 +479,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task DeleteLocationsByTextsAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task DeleteLocationsByTextsAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 
@@ -492,7 +492,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteLocationsByTextsWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteLocationsByTextsWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// 
         /// </summary>
@@ -504,7 +504,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of LocationsSearchResponse</returns>
-        System.Threading.Tasks.Task<LocationsSearchResponse> GetLocationsByAddressesAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<LocationsSearchResponse> GetLocationsByAddressesAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 
@@ -517,7 +517,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (LocationsSearchResponse)</returns>
-        System.Threading.Tasks.Task<ApiResponse<LocationsSearchResponse>> GetLocationsByAddressesWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<LocationsSearchResponse>> GetLocationsByAddressesWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// 
         /// </summary>
@@ -529,7 +529,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of LocationsSearchStatusResponse</returns>
-        System.Threading.Tasks.Task<LocationsSearchStatusResponse> GetLocationsByAddressesStatusAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<LocationsSearchStatusResponse> GetLocationsByAddressesStatusAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 
@@ -542,7 +542,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (LocationsSearchStatusResponse)</returns>
-        System.Threading.Tasks.Task<ApiResponse<LocationsSearchStatusResponse>> GetLocationsByAddressesStatusWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<LocationsSearchStatusResponse>> GetLocationsByAddressesStatusWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// 
         /// </summary>
@@ -554,7 +554,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of LocationsSearchResponse</returns>
-        System.Threading.Tasks.Task<LocationsSearchResponse> GetLocationsByPositionsAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<LocationsSearchResponse> GetLocationsByPositionsAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 
@@ -567,7 +567,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (LocationsSearchResponse)</returns>
-        System.Threading.Tasks.Task<ApiResponse<LocationsSearchResponse>> GetLocationsByPositionsWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<LocationsSearchResponse>> GetLocationsByPositionsWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// 
         /// </summary>
@@ -579,7 +579,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of LocationsSearchStatusResponse</returns>
-        System.Threading.Tasks.Task<LocationsSearchStatusResponse> GetLocationsByPositionsStatusAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<LocationsSearchStatusResponse> GetLocationsByPositionsStatusAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 
@@ -592,7 +592,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (LocationsSearchStatusResponse)</returns>
-        System.Threading.Tasks.Task<ApiResponse<LocationsSearchStatusResponse>> GetLocationsByPositionsStatusWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<LocationsSearchStatusResponse>> GetLocationsByPositionsStatusWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// 
         /// </summary>
@@ -604,7 +604,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of LocationsSearchResponse</returns>
-        System.Threading.Tasks.Task<LocationsSearchResponse> GetLocationsByTextsAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<LocationsSearchResponse> GetLocationsByTextsAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 
@@ -617,7 +617,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (LocationsSearchResponse)</returns>
-        System.Threading.Tasks.Task<ApiResponse<LocationsSearchResponse>> GetLocationsByTextsWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<LocationsSearchResponse>> GetLocationsByTextsWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// 
         /// </summary>
@@ -629,7 +629,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of LocationsSearchStatusResponse</returns>
-        System.Threading.Tasks.Task<LocationsSearchStatusResponse> GetLocationsByTextsStatusAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<LocationsSearchStatusResponse> GetLocationsByTextsStatusAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 
@@ -642,7 +642,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (LocationsSearchStatusResponse)</returns>
-        System.Threading.Tasks.Task<ApiResponse<LocationsSearchStatusResponse>> GetLocationsByTextsStatusWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<LocationsSearchStatusResponse>> GetLocationsByTextsStatusWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
         #endregion Asynchronous Operations
     }
 
@@ -773,7 +773,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="totalScoreType">Defines how Location.quality.totalScore is calculated.    * &#x60;INPUT_AND_RESULT_BASED&#x60; - The total score is calculated by comparing the result against the input.    * &#x60;RESULT_BASED&#x60; - The total score is calculated by classifying result attributes.      This parameter is experimental and may change at any time in the future. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>IdResponse</returns>
-        public IdResponse CreateLocationsByAddresses(AddressesRequest addressesRequest, List<string> countryFilter = default(List<string>), string language = default(string), TotalScoreType? totalScoreType = default(TotalScoreType?), int operationIndex = 0)
+        public IdResponse CreateLocationsByAddresses(AddressesRequest addressesRequest, List<string> countryFilter = default, string language = default, TotalScoreType? totalScoreType = default, int operationIndex = 0)
         {
             PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<IdResponse> localVarResponse = CreateLocationsByAddressesWithHttpInfo(addressesRequest, countryFilter, language, totalScoreType);
             return localVarResponse.Data;
@@ -789,7 +789,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="totalScoreType">Defines how Location.quality.totalScore is calculated.    * &#x60;INPUT_AND_RESULT_BASED&#x60; - The total score is calculated by comparing the result against the input.    * &#x60;RESULT_BASED&#x60; - The total score is calculated by classifying result attributes.      This parameter is experimental and may change at any time in the future. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of IdResponse</returns>
-        public PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<IdResponse> CreateLocationsByAddressesWithHttpInfo(AddressesRequest addressesRequest, List<string> countryFilter = default(List<string>), string language = default(string), TotalScoreType? totalScoreType = default(TotalScoreType?), int operationIndex = 0)
+        public PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<IdResponse> CreateLocationsByAddressesWithHttpInfo(AddressesRequest addressesRequest, List<string> countryFilter = default, string language = default, TotalScoreType? totalScoreType = default, int operationIndex = 0)
         {
             // verify the required parameter 'addressesRequest' is set
             if (addressesRequest == null)
@@ -809,6 +809,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
             };
 
             var localVarContentType = PTV.Developer.Clients.geocoding.batch.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            var localVarMultipartFormData = localVarContentType == "multipart/form-data";
             if (localVarContentType != null)
             {
                 localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
@@ -868,7 +869,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of IdResponse</returns>
-        public async System.Threading.Tasks.Task<IdResponse> CreateLocationsByAddressesAsync(AddressesRequest addressesRequest, List<string> countryFilter = default(List<string>), string language = default(string), TotalScoreType? totalScoreType = default(TotalScoreType?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<IdResponse> CreateLocationsByAddressesAsync(AddressesRequest addressesRequest, List<string> countryFilter = default, string language = default, TotalScoreType? totalScoreType = default, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<IdResponse> localVarResponse = await CreateLocationsByAddressesWithHttpInfoAsync(addressesRequest, countryFilter, language, totalScoreType, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
@@ -885,7 +886,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (IdResponse)</returns>
-        public async System.Threading.Tasks.Task<PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<IdResponse>> CreateLocationsByAddressesWithHttpInfoAsync(AddressesRequest addressesRequest, List<string> countryFilter = default(List<string>), string language = default(string), TotalScoreType? totalScoreType = default(TotalScoreType?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<IdResponse>> CreateLocationsByAddressesWithHttpInfoAsync(AddressesRequest addressesRequest, List<string> countryFilter = default, string language = default, TotalScoreType? totalScoreType = default, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             // verify the required parameter 'addressesRequest' is set
             if (addressesRequest == null)
@@ -964,7 +965,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="minimumPopulation">If specified, the response contains only the nearest city or town with at least the given population. The **locationType** of this result will be _LOCALITY_, street information will not be returned.  This parameter is in an experimental state and may change at any time. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>IdResponse</returns>
-        public IdResponse CreateLocationsByPositions(PositionsRequest positionsRequest, string language = default(string), int? minimumPopulation = default(int?), int operationIndex = 0)
+        public IdResponse CreateLocationsByPositions(PositionsRequest positionsRequest, string language = default, int? minimumPopulation = default, int operationIndex = 0)
         {
             PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<IdResponse> localVarResponse = CreateLocationsByPositionsWithHttpInfo(positionsRequest, language, minimumPopulation);
             return localVarResponse.Data;
@@ -979,7 +980,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="minimumPopulation">If specified, the response contains only the nearest city or town with at least the given population. The **locationType** of this result will be _LOCALITY_, street information will not be returned.  This parameter is in an experimental state and may change at any time. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of IdResponse</returns>
-        public PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<IdResponse> CreateLocationsByPositionsWithHttpInfo(PositionsRequest positionsRequest, string language = default(string), int? minimumPopulation = default(int?), int operationIndex = 0)
+        public PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<IdResponse> CreateLocationsByPositionsWithHttpInfo(PositionsRequest positionsRequest, string language = default, int? minimumPopulation = default, int operationIndex = 0)
         {
             // verify the required parameter 'positionsRequest' is set
             if (positionsRequest == null)
@@ -999,6 +1000,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
             };
 
             var localVarContentType = PTV.Developer.Clients.geocoding.batch.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            var localVarMultipartFormData = localVarContentType == "multipart/form-data";
             if (localVarContentType != null)
             {
                 localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
@@ -1053,7 +1055,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of IdResponse</returns>
-        public async System.Threading.Tasks.Task<IdResponse> CreateLocationsByPositionsAsync(PositionsRequest positionsRequest, string language = default(string), int? minimumPopulation = default(int?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<IdResponse> CreateLocationsByPositionsAsync(PositionsRequest positionsRequest, string language = default, int? minimumPopulation = default, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<IdResponse> localVarResponse = await CreateLocationsByPositionsWithHttpInfoAsync(positionsRequest, language, minimumPopulation, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
@@ -1069,7 +1071,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (IdResponse)</returns>
-        public async System.Threading.Tasks.Task<PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<IdResponse>> CreateLocationsByPositionsWithHttpInfoAsync(PositionsRequest positionsRequest, string language = default(string), int? minimumPopulation = default(int?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<IdResponse>> CreateLocationsByPositionsWithHttpInfoAsync(PositionsRequest positionsRequest, string language = default, int? minimumPopulation = default, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             // verify the required parameter 'positionsRequest' is set
             if (positionsRequest == null)
@@ -1145,7 +1147,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="cleanInput">If set to &#x60;true&#x60;, the service will try (for certain countries) to clean the input in a pre-processing step. This helps to expedite processing if the input is a free-form text that may contain garbage. This flag may influence the scores in the response. For more details see the corresponding [concept](./concepts/clean-input).      This parameter is experimental and may change at any time in the future. (optional, default to false)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>IdResponse</returns>
-        public IdResponse CreateLocationsByTexts(TextsRequest textsRequest, List<string> countryFilter = default(List<string>), string language = default(string), bool? cleanInput = default(bool?), int operationIndex = 0)
+        public IdResponse CreateLocationsByTexts(TextsRequest textsRequest, List<string> countryFilter = default, string language = default, bool? cleanInput = default, int operationIndex = 0)
         {
             PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<IdResponse> localVarResponse = CreateLocationsByTextsWithHttpInfo(textsRequest, countryFilter, language, cleanInput);
             return localVarResponse.Data;
@@ -1161,7 +1163,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="cleanInput">If set to &#x60;true&#x60;, the service will try (for certain countries) to clean the input in a pre-processing step. This helps to expedite processing if the input is a free-form text that may contain garbage. This flag may influence the scores in the response. For more details see the corresponding [concept](./concepts/clean-input).      This parameter is experimental and may change at any time in the future. (optional, default to false)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of IdResponse</returns>
-        public PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<IdResponse> CreateLocationsByTextsWithHttpInfo(TextsRequest textsRequest, List<string> countryFilter = default(List<string>), string language = default(string), bool? cleanInput = default(bool?), int operationIndex = 0)
+        public PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<IdResponse> CreateLocationsByTextsWithHttpInfo(TextsRequest textsRequest, List<string> countryFilter = default, string language = default, bool? cleanInput = default, int operationIndex = 0)
         {
             // verify the required parameter 'textsRequest' is set
             if (textsRequest == null)
@@ -1181,6 +1183,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
             };
 
             var localVarContentType = PTV.Developer.Clients.geocoding.batch.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            var localVarMultipartFormData = localVarContentType == "multipart/form-data";
             if (localVarContentType != null)
             {
                 localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
@@ -1240,7 +1243,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of IdResponse</returns>
-        public async System.Threading.Tasks.Task<IdResponse> CreateLocationsByTextsAsync(TextsRequest textsRequest, List<string> countryFilter = default(List<string>), string language = default(string), bool? cleanInput = default(bool?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<IdResponse> CreateLocationsByTextsAsync(TextsRequest textsRequest, List<string> countryFilter = default, string language = default, bool? cleanInput = default, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<IdResponse> localVarResponse = await CreateLocationsByTextsWithHttpInfoAsync(textsRequest, countryFilter, language, cleanInput, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
@@ -1257,7 +1260,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (IdResponse)</returns>
-        public async System.Threading.Tasks.Task<PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<IdResponse>> CreateLocationsByTextsWithHttpInfoAsync(TextsRequest textsRequest, List<string> countryFilter = default(List<string>), string language = default(string), bool? cleanInput = default(bool?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<IdResponse>> CreateLocationsByTextsWithHttpInfoAsync(TextsRequest textsRequest, List<string> countryFilter = default, string language = default, bool? cleanInput = default, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             // verify the required parameter 'textsRequest' is set
             if (textsRequest == null)
@@ -1365,6 +1368,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
             };
 
             var localVarContentType = PTV.Developer.Clients.geocoding.batch.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            var localVarMultipartFormData = localVarContentType == "multipart/form-data";
             if (localVarContentType != null)
             {
                 localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
@@ -1409,7 +1413,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task DeleteLocationsByAddressesAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task DeleteLocationsByAddressesAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             await DeleteLocationsByAddressesWithHttpInfoAsync(id, operationIndex, cancellationToken).ConfigureAwait(false);
         }
@@ -1422,7 +1426,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<Object>> DeleteLocationsByAddressesWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<Object>> DeleteLocationsByAddressesWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             // verify the required parameter 'id' is set
             if (id == null)
@@ -1517,6 +1521,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
             };
 
             var localVarContentType = PTV.Developer.Clients.geocoding.batch.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            var localVarMultipartFormData = localVarContentType == "multipart/form-data";
             if (localVarContentType != null)
             {
                 localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
@@ -1561,7 +1566,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task DeleteLocationsByPositionsAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task DeleteLocationsByPositionsAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             await DeleteLocationsByPositionsWithHttpInfoAsync(id, operationIndex, cancellationToken).ConfigureAwait(false);
         }
@@ -1574,7 +1579,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<Object>> DeleteLocationsByPositionsWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<Object>> DeleteLocationsByPositionsWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             // verify the required parameter 'id' is set
             if (id == null)
@@ -1669,6 +1674,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
             };
 
             var localVarContentType = PTV.Developer.Clients.geocoding.batch.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            var localVarMultipartFormData = localVarContentType == "multipart/form-data";
             if (localVarContentType != null)
             {
                 localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
@@ -1713,7 +1719,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task DeleteLocationsByTextsAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task DeleteLocationsByTextsAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             await DeleteLocationsByTextsWithHttpInfoAsync(id, operationIndex, cancellationToken).ConfigureAwait(false);
         }
@@ -1726,7 +1732,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<Object>> DeleteLocationsByTextsWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<Object>> DeleteLocationsByTextsWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             // verify the required parameter 'id' is set
             if (id == null)
@@ -1822,6 +1828,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
             };
 
             var localVarContentType = PTV.Developer.Clients.geocoding.batch.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            var localVarMultipartFormData = localVarContentType == "multipart/form-data";
             if (localVarContentType != null)
             {
                 localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
@@ -1866,7 +1873,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of LocationsSearchResponse</returns>
-        public async System.Threading.Tasks.Task<LocationsSearchResponse> GetLocationsByAddressesAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<LocationsSearchResponse> GetLocationsByAddressesAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<LocationsSearchResponse> localVarResponse = await GetLocationsByAddressesWithHttpInfoAsync(id, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
@@ -1880,7 +1887,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (LocationsSearchResponse)</returns>
-        public async System.Threading.Tasks.Task<PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<LocationsSearchResponse>> GetLocationsByAddressesWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<LocationsSearchResponse>> GetLocationsByAddressesWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             // verify the required parameter 'id' is set
             if (id == null)
@@ -1976,6 +1983,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
             };
 
             var localVarContentType = PTV.Developer.Clients.geocoding.batch.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            var localVarMultipartFormData = localVarContentType == "multipart/form-data";
             if (localVarContentType != null)
             {
                 localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
@@ -2020,7 +2028,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of LocationsSearchStatusResponse</returns>
-        public async System.Threading.Tasks.Task<LocationsSearchStatusResponse> GetLocationsByAddressesStatusAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<LocationsSearchStatusResponse> GetLocationsByAddressesStatusAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<LocationsSearchStatusResponse> localVarResponse = await GetLocationsByAddressesStatusWithHttpInfoAsync(id, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
@@ -2034,7 +2042,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (LocationsSearchStatusResponse)</returns>
-        public async System.Threading.Tasks.Task<PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<LocationsSearchStatusResponse>> GetLocationsByAddressesStatusWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<LocationsSearchStatusResponse>> GetLocationsByAddressesStatusWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             // verify the required parameter 'id' is set
             if (id == null)
@@ -2130,6 +2138,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
             };
 
             var localVarContentType = PTV.Developer.Clients.geocoding.batch.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            var localVarMultipartFormData = localVarContentType == "multipart/form-data";
             if (localVarContentType != null)
             {
                 localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
@@ -2174,7 +2183,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of LocationsSearchResponse</returns>
-        public async System.Threading.Tasks.Task<LocationsSearchResponse> GetLocationsByPositionsAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<LocationsSearchResponse> GetLocationsByPositionsAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<LocationsSearchResponse> localVarResponse = await GetLocationsByPositionsWithHttpInfoAsync(id, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
@@ -2188,7 +2197,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (LocationsSearchResponse)</returns>
-        public async System.Threading.Tasks.Task<PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<LocationsSearchResponse>> GetLocationsByPositionsWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<LocationsSearchResponse>> GetLocationsByPositionsWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             // verify the required parameter 'id' is set
             if (id == null)
@@ -2284,6 +2293,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
             };
 
             var localVarContentType = PTV.Developer.Clients.geocoding.batch.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            var localVarMultipartFormData = localVarContentType == "multipart/form-data";
             if (localVarContentType != null)
             {
                 localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
@@ -2328,7 +2338,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of LocationsSearchStatusResponse</returns>
-        public async System.Threading.Tasks.Task<LocationsSearchStatusResponse> GetLocationsByPositionsStatusAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<LocationsSearchStatusResponse> GetLocationsByPositionsStatusAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<LocationsSearchStatusResponse> localVarResponse = await GetLocationsByPositionsStatusWithHttpInfoAsync(id, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
@@ -2342,7 +2352,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (LocationsSearchStatusResponse)</returns>
-        public async System.Threading.Tasks.Task<PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<LocationsSearchStatusResponse>> GetLocationsByPositionsStatusWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<LocationsSearchStatusResponse>> GetLocationsByPositionsStatusWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             // verify the required parameter 'id' is set
             if (id == null)
@@ -2438,6 +2448,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
             };
 
             var localVarContentType = PTV.Developer.Clients.geocoding.batch.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            var localVarMultipartFormData = localVarContentType == "multipart/form-data";
             if (localVarContentType != null)
             {
                 localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
@@ -2482,7 +2493,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of LocationsSearchResponse</returns>
-        public async System.Threading.Tasks.Task<LocationsSearchResponse> GetLocationsByTextsAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<LocationsSearchResponse> GetLocationsByTextsAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<LocationsSearchResponse> localVarResponse = await GetLocationsByTextsWithHttpInfoAsync(id, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
@@ -2496,7 +2507,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (LocationsSearchResponse)</returns>
-        public async System.Threading.Tasks.Task<PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<LocationsSearchResponse>> GetLocationsByTextsWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<LocationsSearchResponse>> GetLocationsByTextsWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             // verify the required parameter 'id' is set
             if (id == null)
@@ -2592,6 +2603,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
             };
 
             var localVarContentType = PTV.Developer.Clients.geocoding.batch.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            var localVarMultipartFormData = localVarContentType == "multipart/form-data";
             if (localVarContentType != null)
             {
                 localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
@@ -2636,7 +2648,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of LocationsSearchStatusResponse</returns>
-        public async System.Threading.Tasks.Task<LocationsSearchStatusResponse> GetLocationsByTextsStatusAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<LocationsSearchStatusResponse> GetLocationsByTextsStatusAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<LocationsSearchStatusResponse> localVarResponse = await GetLocationsByTextsStatusWithHttpInfoAsync(id, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
@@ -2650,7 +2662,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (LocationsSearchStatusResponse)</returns>
-        public async System.Threading.Tasks.Task<PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<LocationsSearchStatusResponse>> GetLocationsByTextsStatusWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<PTV.Developer.Clients.geocoding.batch.Client.ApiResponse<LocationsSearchStatusResponse>> GetLocationsByTextsStatusWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             // verify the required parameter 'id' is set
             if (id == null)

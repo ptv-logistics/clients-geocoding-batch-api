@@ -37,7 +37,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Model
         /// <param name="locations">The found locations..</param>
         /// <param name="warnings">A list of warnings concerning the validity of the result..</param>
         /// <param name="error">error.</param>
-        public LocationsSearchResult(List<Location> locations = default(List<Location>), List<Warning> warnings = default(List<Warning>), ErrorResponse error = default(ErrorResponse))
+        public LocationsSearchResult(List<Location> locations = default, List<Warning> warnings = default, ErrorResponse error = default)
         {
             this.Locations = locations;
             this.Warnings = warnings;

@@ -47,7 +47,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Model
         /// </summary>
         /// <param name="status">status (required).</param>
         /// <param name="progress">The progress of the geocoding request in \\[%\\]. (required).</param>
-        public LocationsSearchStatusResponse(Status status = default(Status), int? progress = default(int?))
+        public LocationsSearchStatusResponse(Status status = default, int? progress = default)
         {
             this.Status = status;
             // to ensure "progress" is required (not null)

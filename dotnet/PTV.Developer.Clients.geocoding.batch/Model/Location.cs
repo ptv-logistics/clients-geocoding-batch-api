@@ -51,7 +51,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Model
         /// <param name="formattedAddress">A single string representing the address, typically consisting of the street, house number, postal code, city, and country. The precise format may differ based on what is appropriate for the address..</param>
         /// <param name="locationType">locationType (required).</param>
         /// <param name="quality">quality (required).</param>
-        public Location(ReferencePosition referencePosition = default(ReferencePosition), RoadAccessPosition roadAccessPosition = default(RoadAccessPosition), Address address = default(Address), string formattedAddress = default(string), LocationType locationType = default(LocationType), Quality quality = default(Quality))
+        public Location(ReferencePosition referencePosition = default, RoadAccessPosition roadAccessPosition = default, Address address = default, string formattedAddress = default, LocationType locationType = default, Quality quality = default)
         {
             // to ensure "referencePosition" is required (not null)
             if (referencePosition == null)

@@ -40,7 +40,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Model
         /// Initializes a new instance of the <see cref="TextsRequest" /> class.
         /// </summary>
         /// <param name="texts">List of free-form text inputs that describe a location. (required).</param>
-        public TextsRequest(List<string> texts = default(List<string>))
+        public TextsRequest(List<string> texts = default)
         {
             // to ensure "texts" is required (not null)
             if (texts == null)

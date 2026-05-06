@@ -40,7 +40,7 @@ namespace PTV.Developer.Clients.geocoding.batch.Model
         /// Initializes a new instance of the <see cref="AddressesRequest" /> class.
         /// </summary>
         /// <param name="addresses">List of multi-field address inputs that describe a location. (required).</param>
-        public AddressesRequest(List<AddressProperties> addresses = default(List<AddressProperties>))
+        public AddressesRequest(List<AddressProperties> addresses = default)
         {
             // to ensure "addresses" is required (not null)
             if (addresses == null)
