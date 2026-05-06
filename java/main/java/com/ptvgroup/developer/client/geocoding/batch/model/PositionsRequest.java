@@ -38,15 +38,16 @@ import com.ptvgroup.developer.client.geocoding.batch.ApiClient;
 @JsonPropertyOrder({
   PositionsRequest.JSON_PROPERTY_POSITIONS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-10-27T10:23:49.716906276Z[Etc/UTC]", comments = "Generator version: 7.8.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-05-06T09:13:45.824615770Z[Etc/UTC]", comments = "Generator version: 7.22.0")
 public class PositionsRequest {
   public static final String JSON_PROPERTY_POSITIONS = "positions";
+  @javax.annotation.Nonnull
   private List<Position> positions;
 
   public PositionsRequest() { 
   }
 
-  public PositionsRequest positions(List<Position> positions) {
+  public PositionsRequest positions(@javax.annotation.Nonnull List<Position> positions) {
     this.positions = positions;
     return this;
   }
@@ -64,16 +65,16 @@ public class PositionsRequest {
    * @return positions
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_POSITIONS)
+  @JsonProperty(value = JSON_PROPERTY_POSITIONS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List<Position> getPositions() {
     return positions;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_POSITIONS)
+  @JsonProperty(value = JSON_PROPERTY_POSITIONS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPositions(List<Position> positions) {
+  public void setPositions(@javax.annotation.Nonnull List<Position> positions) {
     this.positions = positions;
   }
 
@@ -112,10 +113,7 @@ public class PositionsRequest {
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
 
   /**
@@ -154,8 +152,8 @@ public class PositionsRequest {
     if (getPositions() != null) {
       for (int i = 0; i < getPositions().size(); i++) {
         if (getPositions().get(i) != null) {
-          joiner.add(getPositions().get(i).toUrlQueryString(String.format("%spositions%s%s", prefix, suffix,
-          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+          joiner.add(getPositions().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%spositions%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
         }
       }
     }

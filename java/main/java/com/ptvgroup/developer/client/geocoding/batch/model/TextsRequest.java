@@ -37,15 +37,16 @@ import com.ptvgroup.developer.client.geocoding.batch.ApiClient;
 @JsonPropertyOrder({
   TextsRequest.JSON_PROPERTY_TEXTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-10-27T10:23:49.716906276Z[Etc/UTC]", comments = "Generator version: 7.8.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-05-06T09:13:45.824615770Z[Etc/UTC]", comments = "Generator version: 7.22.0")
 public class TextsRequest {
   public static final String JSON_PROPERTY_TEXTS = "texts";
+  @javax.annotation.Nonnull
   private List<String> texts;
 
   public TextsRequest() { 
   }
 
-  public TextsRequest texts(List<String> texts) {
+  public TextsRequest texts(@javax.annotation.Nonnull List<String> texts) {
     this.texts = texts;
     return this;
   }
@@ -63,16 +64,16 @@ public class TextsRequest {
    * @return texts
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TEXTS)
+  @JsonProperty(value = JSON_PROPERTY_TEXTS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List<String> getTexts() {
     return texts;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TEXTS)
+  @JsonProperty(value = JSON_PROPERTY_TEXTS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTexts(List<String> texts) {
+  public void setTexts(@javax.annotation.Nonnull List<String> texts) {
     this.texts = texts;
   }
 
@@ -111,10 +112,7 @@ public class TextsRequest {
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
 
   /**
@@ -152,9 +150,9 @@ public class TextsRequest {
     // add `texts` to the URL query string
     if (getTexts() != null) {
       for (int i = 0; i < getTexts().size(); i++) {
-        joiner.add(String.format("%stexts%s%s=%s", prefix, suffix,
-            "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
-            URLEncoder.encode(ApiClient.valueToString(getTexts().get(i)), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+        joiner.add(String.format(java.util.Locale.ROOT, "%stexts%s%s=%s", prefix, suffix,
+            "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
+            ApiClient.urlEncode(ApiClient.valueToString(getTexts().get(i)))));
       }
     }
 

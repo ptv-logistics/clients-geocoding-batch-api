@@ -38,15 +38,16 @@ import com.ptvgroup.developer.client.geocoding.batch.ApiClient;
 @JsonPropertyOrder({
   AddressesRequest.JSON_PROPERTY_ADDRESSES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-10-27T10:23:49.716906276Z[Etc/UTC]", comments = "Generator version: 7.8.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-05-06T09:13:45.824615770Z[Etc/UTC]", comments = "Generator version: 7.22.0")
 public class AddressesRequest {
   public static final String JSON_PROPERTY_ADDRESSES = "addresses";
+  @javax.annotation.Nonnull
   private List<AddressProperties> addresses;
 
   public AddressesRequest() { 
   }
 
-  public AddressesRequest addresses(List<AddressProperties> addresses) {
+  public AddressesRequest addresses(@javax.annotation.Nonnull List<AddressProperties> addresses) {
     this.addresses = addresses;
     return this;
   }
@@ -64,16 +65,16 @@ public class AddressesRequest {
    * @return addresses
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ADDRESSES)
+  @JsonProperty(value = JSON_PROPERTY_ADDRESSES, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List<AddressProperties> getAddresses() {
     return addresses;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ADDRESSES)
+  @JsonProperty(value = JSON_PROPERTY_ADDRESSES, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setAddresses(List<AddressProperties> addresses) {
+  public void setAddresses(@javax.annotation.Nonnull List<AddressProperties> addresses) {
     this.addresses = addresses;
   }
 
@@ -112,10 +113,7 @@ public class AddressesRequest {
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
 
   /**
@@ -154,8 +152,8 @@ public class AddressesRequest {
     if (getAddresses() != null) {
       for (int i = 0; i < getAddresses().size(); i++) {
         if (getAddresses().get(i) != null) {
-          joiner.add(getAddresses().get(i).toUrlQueryString(String.format("%saddresses%s%s", prefix, suffix,
-          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+          joiner.add(getAddresses().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%saddresses%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
         }
       }
     }

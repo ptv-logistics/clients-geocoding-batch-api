@@ -15,6 +15,7 @@ package com.ptvgroup.developer.client.geocoding.batch.api;
 import com.ptvgroup.developer.client.geocoding.batch.ApiClient;
 import com.ptvgroup.developer.client.geocoding.batch.ApiException;
 import com.ptvgroup.developer.client.geocoding.batch.ApiResponse;
+import com.ptvgroup.developer.client.geocoding.batch.Configuration;
 import com.ptvgroup.developer.client.geocoding.batch.Pair;
 
 import com.ptvgroup.developer.client.geocoding.batch.model.AddressesRequest;
@@ -52,18 +53,38 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-10-27T10:23:49.716906276Z[Etc/UTC]", comments = "Generator version: 7.8.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-05-06T09:13:45.824615770Z[Etc/UTC]", comments = "Generator version: 7.22.0")
 public class LocationsApi {
+  /**
+   * Utility class for extending HttpRequest.Builder functionality.
+   */
+  private static class HttpRequestBuilderExtensions {
+    /**
+     * Adds additional headers to the provided HttpRequest.Builder. Useful for adding method/endpoint specific headers.
+     *
+     * @param builder the HttpRequest.Builder to which headers will be added
+     * @param headers a map of header names and values to add; may be null
+     * @return the same HttpRequest.Builder instance with the additional headers set
+     */
+    static HttpRequest.Builder withAdditionalHeaders(HttpRequest.Builder builder, Map<String, String> headers) {
+        if (headers != null) {
+            for (Map.Entry<String, String> entry : headers.entrySet()) {
+                builder.header(entry.getKey(), entry.getValue());
+            }
+        }
+        return builder;
+    }
+  }
   private final HttpClient memberVarHttpClient;
   private final ObjectMapper memberVarObjectMapper;
   private final String memberVarBaseUri;
   private final Consumer<HttpRequest.Builder> memberVarInterceptor;
   private final Duration memberVarReadTimeout;
   private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
-  private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
+  private final Consumer<HttpResponse<InputStream>> memberVarAsyncResponseInterceptor;
 
   public LocationsApi() {
-    this(new ApiClient());
+    this(Configuration.getDefaultApiClient());
   }
 
   public LocationsApi(ApiClient apiClient) {
@@ -76,8 +97,17 @@ public class LocationsApi {
     memberVarAsyncResponseInterceptor = apiClient.getAsyncResponseInterceptor();
   }
 
+
   protected ApiException getApiException(String operationId, HttpResponse<InputStream> response) throws IOException {
-    String body = response.body() == null ? null : new String(response.body().readAllBytes());
+    InputStream responseBody = ApiClient.getResponseBody(response);
+    String body = null;
+    try {
+      body = responseBody == null ? null : new String(responseBody.readAllBytes());
+    } finally {
+      if (responseBody != null) {
+        responseBody.close();
+      }
+    }
     String message = formatExceptionMessage(operationId, response.statusCode(), body);
     return new ApiException(response.statusCode(), message, response.headers(), body);
   }
@@ -90,6 +120,57 @@ public class LocationsApi {
   }
 
   /**
+   * Download file from the given response.
+   *
+   * @param response Response
+   * @return File
+   * @throws ApiException If fail to read file content from response and write to disk
+   */
+  public File downloadFileFromResponse(HttpResponse<InputStream> response, InputStream responseBody) throws ApiException {
+    if (responseBody == null) {
+      throw new ApiException(new IOException("Response body is empty"));
+    }
+    try {
+      File file = prepareDownloadFile(response);
+      java.nio.file.Files.copy(responseBody, file.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+      return file;
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+  }
+
+  /**
+   * <p>Prepare the file for download from the response.</p>
+   *
+   * @param response a {@link java.net.http.HttpResponse} object.
+   * @return a {@link java.io.File} object.
+   * @throws java.io.IOException if any.
+   */
+  private File prepareDownloadFile(HttpResponse<InputStream> response) throws IOException {
+    String filename = null;
+    java.util.Optional<String> contentDisposition = response.headers().firstValue("Content-Disposition");
+    if (contentDisposition.isPresent() && !"".equals(contentDisposition.get())) {
+      // Get filename from the Content-Disposition header.
+      java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("filename=['\"]?([^'\"\\s]+)['\"]?");
+      java.util.regex.Matcher matcher = pattern.matcher(contentDisposition.get());
+      if (matcher.find())
+        filename = matcher.group(1);
+    }
+    File file = null;
+    if (filename != null) {
+      java.nio.file.Path tempDir = java.nio.file.Files.createTempDirectory("swagger-gen-native");
+      java.nio.file.Path filePath = java.nio.file.Files.createFile(tempDir.resolve(filename));
+      file = filePath.toFile();
+      tempDir.toFile().deleteOnExit();   // best effort cleanup
+      file.deleteOnExit(); // best effort cleanup
+    } else {
+      file = java.nio.file.Files.createTempFile("download-", "").toFile();
+      file.deleteOnExit(); // best effort cleanup
+    }
+    return file;
+  }
+
+  /**
    * 
    * Creates a search request for locations based on a list of structured address inputs.
    * @param addressesRequest  (required)
@@ -99,8 +180,23 @@ public class LocationsApi {
    * @return IdResponse
    * @throws ApiException if fails to make API call
    */
-  public IdResponse createLocationsByAddresses(AddressesRequest addressesRequest, List<String> countryFilter, String language, TotalScoreType totalScoreType) throws ApiException {
-    ApiResponse<IdResponse> localVarResponse = createLocationsByAddressesWithHttpInfo(addressesRequest, countryFilter, language, totalScoreType);
+  public IdResponse createLocationsByAddresses(@javax.annotation.Nonnull AddressesRequest addressesRequest, @javax.annotation.Nullable List<String> countryFilter, @javax.annotation.Nullable String language, @javax.annotation.Nullable TotalScoreType totalScoreType) throws ApiException {
+    return createLocationsByAddresses(addressesRequest, countryFilter, language, totalScoreType, null);
+  }
+
+  /**
+   * 
+   * Creates a search request for locations based on a list of structured address inputs.
+   * @param addressesRequest  (required)
+   * @param countryFilter A comma-separated list of country codes according to [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) or [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) if referring to a subdivision. The search will only consider data from countries with these codes. If no filter is specified, all countries are taken into account. However, empty values are not allowed.     If a given subdivision code is not supported, only the first two digits referring to the country are considered in the search and a **warningCode** &#x60;GEOCODING_COUNTRY_FILTER_MODIFIED&#x60; is returned with the response. (optional)
+   * @param language The preferred language for the response formatted according to [ISO-639-1](https://www.loc.gov/standards/iso639-2/php/code_list.php) for languages or [BCP47](https://tools.ietf.org/html/bcp47) for language variants. By default the service uses the language spoken in the country or region of the result. In case the given preferred language is not available in the data, the default language is used. (optional)
+   * @param totalScoreType Defines how Location.quality.totalScore is calculated.    * &#x60;INPUT_AND_RESULT_BASED&#x60; - The total score is calculated by comparing the result against the input.    * &#x60;RESULT_BASED&#x60; - The total score is calculated by classifying result attributes.      This parameter is experimental and may change at any time in the future. (optional, default to INPUT_AND_RESULT_BASED)
+   * @param headers Optional headers to include in the request
+   * @return IdResponse
+   * @throws ApiException if fails to make API call
+   */
+  public IdResponse createLocationsByAddresses(@javax.annotation.Nonnull AddressesRequest addressesRequest, @javax.annotation.Nullable List<String> countryFilter, @javax.annotation.Nullable String language, @javax.annotation.Nullable TotalScoreType totalScoreType, Map<String, String> headers) throws ApiException {
+    ApiResponse<IdResponse> localVarResponse = createLocationsByAddressesWithHttpInfo(addressesRequest, countryFilter, language, totalScoreType, headers);
     return localVarResponse.getData();
   }
 
@@ -114,8 +210,23 @@ public class LocationsApi {
    * @return ApiResponse&lt;IdResponse&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<IdResponse> createLocationsByAddressesWithHttpInfo(AddressesRequest addressesRequest, List<String> countryFilter, String language, TotalScoreType totalScoreType) throws ApiException {
-    HttpRequest.Builder localVarRequestBuilder = createLocationsByAddressesRequestBuilder(addressesRequest, countryFilter, language, totalScoreType);
+  public ApiResponse<IdResponse> createLocationsByAddressesWithHttpInfo(@javax.annotation.Nonnull AddressesRequest addressesRequest, @javax.annotation.Nullable List<String> countryFilter, @javax.annotation.Nullable String language, @javax.annotation.Nullable TotalScoreType totalScoreType) throws ApiException {
+    return createLocationsByAddressesWithHttpInfo(addressesRequest, countryFilter, language, totalScoreType, null);
+  }
+
+  /**
+   * 
+   * Creates a search request for locations based on a list of structured address inputs.
+   * @param addressesRequest  (required)
+   * @param countryFilter A comma-separated list of country codes according to [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) or [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) if referring to a subdivision. The search will only consider data from countries with these codes. If no filter is specified, all countries are taken into account. However, empty values are not allowed.     If a given subdivision code is not supported, only the first two digits referring to the country are considered in the search and a **warningCode** &#x60;GEOCODING_COUNTRY_FILTER_MODIFIED&#x60; is returned with the response. (optional)
+   * @param language The preferred language for the response formatted according to [ISO-639-1](https://www.loc.gov/standards/iso639-2/php/code_list.php) for languages or [BCP47](https://tools.ietf.org/html/bcp47) for language variants. By default the service uses the language spoken in the country or region of the result. In case the given preferred language is not available in the data, the default language is used. (optional)
+   * @param totalScoreType Defines how Location.quality.totalScore is calculated.    * &#x60;INPUT_AND_RESULT_BASED&#x60; - The total score is calculated by comparing the result against the input.    * &#x60;RESULT_BASED&#x60; - The total score is calculated by classifying result attributes.      This parameter is experimental and may change at any time in the future. (optional, default to INPUT_AND_RESULT_BASED)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;IdResponse&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<IdResponse> createLocationsByAddressesWithHttpInfo(@javax.annotation.Nonnull AddressesRequest addressesRequest, @javax.annotation.Nullable List<String> countryFilter, @javax.annotation.Nullable String language, @javax.annotation.Nullable TotalScoreType totalScoreType, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = createLocationsByAddressesRequestBuilder(addressesRequest, countryFilter, language, totalScoreType, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
           localVarRequestBuilder.build(),
@@ -123,16 +234,35 @@ public class LocationsApi {
       if (memberVarResponseInterceptor != null) {
         memberVarResponseInterceptor.accept(localVarResponse);
       }
+      InputStream localVarResponseBody = null;
       try {
         if (localVarResponse.statusCode()/ 100 != 2) {
           throw getApiException("createLocationsByAddresses", localVarResponse);
         }
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody == null) {
+          return new ApiResponse<IdResponse>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
+        }
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        IdResponse responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<IdResponse>() {});
+        
+
         return new ApiResponse<IdResponse>(
-          localVarResponse.statusCode(),
-          localVarResponse.headers().map(),
-          localVarResponse.body() == null ? null : memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<IdResponse>() {}) // closes the InputStream
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            responseValue
         );
       } finally {
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
+        }
       }
     } catch (IOException e) {
       throw new ApiException(e);
@@ -143,7 +273,7 @@ public class LocationsApi {
     }
   }
 
-  private HttpRequest.Builder createLocationsByAddressesRequestBuilder(AddressesRequest addressesRequest, List<String> countryFilter, String language, TotalScoreType totalScoreType) throws ApiException {
+  private HttpRequest.Builder createLocationsByAddressesRequestBuilder(@javax.annotation.Nonnull AddressesRequest addressesRequest, @javax.annotation.Nullable List<String> countryFilter, @javax.annotation.Nullable String language, @javax.annotation.Nullable TotalScoreType totalScoreType, Map<String, String> headers) throws ApiException {
     // verify the required parameter 'addressesRequest' is set
     if (addressesRequest == null) {
       throw new ApiException(400, "Missing the required parameter 'addressesRequest' when calling createLocationsByAddresses");
@@ -186,6 +316,8 @@ public class LocationsApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -201,8 +333,22 @@ public class LocationsApi {
    * @return IdResponse
    * @throws ApiException if fails to make API call
    */
-  public IdResponse createLocationsByPositions(PositionsRequest positionsRequest, String language, Integer minimumPopulation) throws ApiException {
-    ApiResponse<IdResponse> localVarResponse = createLocationsByPositionsWithHttpInfo(positionsRequest, language, minimumPopulation);
+  public IdResponse createLocationsByPositions(@javax.annotation.Nonnull PositionsRequest positionsRequest, @javax.annotation.Nullable String language, @javax.annotation.Nullable Integer minimumPopulation) throws ApiException {
+    return createLocationsByPositions(positionsRequest, language, minimumPopulation, null);
+  }
+
+  /**
+   * 
+   * Creates a search request for locations based on a list of positions.
+   * @param positionsRequest  (required)
+   * @param language The preferred language for the response formatted according to [ISO-639-1](https://www.loc.gov/standards/iso639-2/php/code_list.php) for languages or [BCP47](https://tools.ietf.org/html/bcp47) for language variants. By default the service uses the language spoken in the country or region of the result. In case the given preferred language is not available in the data, the default language is used. (optional)
+   * @param minimumPopulation If specified, the response contains only the nearest city or town with at least the given population. The **locationType** of this result will be _LOCALITY_, street information will not be returned.  This parameter is in an experimental state and may change at any time. (optional)
+   * @param headers Optional headers to include in the request
+   * @return IdResponse
+   * @throws ApiException if fails to make API call
+   */
+  public IdResponse createLocationsByPositions(@javax.annotation.Nonnull PositionsRequest positionsRequest, @javax.annotation.Nullable String language, @javax.annotation.Nullable Integer minimumPopulation, Map<String, String> headers) throws ApiException {
+    ApiResponse<IdResponse> localVarResponse = createLocationsByPositionsWithHttpInfo(positionsRequest, language, minimumPopulation, headers);
     return localVarResponse.getData();
   }
 
@@ -215,8 +361,22 @@ public class LocationsApi {
    * @return ApiResponse&lt;IdResponse&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<IdResponse> createLocationsByPositionsWithHttpInfo(PositionsRequest positionsRequest, String language, Integer minimumPopulation) throws ApiException {
-    HttpRequest.Builder localVarRequestBuilder = createLocationsByPositionsRequestBuilder(positionsRequest, language, minimumPopulation);
+  public ApiResponse<IdResponse> createLocationsByPositionsWithHttpInfo(@javax.annotation.Nonnull PositionsRequest positionsRequest, @javax.annotation.Nullable String language, @javax.annotation.Nullable Integer minimumPopulation) throws ApiException {
+    return createLocationsByPositionsWithHttpInfo(positionsRequest, language, minimumPopulation, null);
+  }
+
+  /**
+   * 
+   * Creates a search request for locations based on a list of positions.
+   * @param positionsRequest  (required)
+   * @param language The preferred language for the response formatted according to [ISO-639-1](https://www.loc.gov/standards/iso639-2/php/code_list.php) for languages or [BCP47](https://tools.ietf.org/html/bcp47) for language variants. By default the service uses the language spoken in the country or region of the result. In case the given preferred language is not available in the data, the default language is used. (optional)
+   * @param minimumPopulation If specified, the response contains only the nearest city or town with at least the given population. The **locationType** of this result will be _LOCALITY_, street information will not be returned.  This parameter is in an experimental state and may change at any time. (optional)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;IdResponse&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<IdResponse> createLocationsByPositionsWithHttpInfo(@javax.annotation.Nonnull PositionsRequest positionsRequest, @javax.annotation.Nullable String language, @javax.annotation.Nullable Integer minimumPopulation, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = createLocationsByPositionsRequestBuilder(positionsRequest, language, minimumPopulation, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
           localVarRequestBuilder.build(),
@@ -224,16 +384,35 @@ public class LocationsApi {
       if (memberVarResponseInterceptor != null) {
         memberVarResponseInterceptor.accept(localVarResponse);
       }
+      InputStream localVarResponseBody = null;
       try {
         if (localVarResponse.statusCode()/ 100 != 2) {
           throw getApiException("createLocationsByPositions", localVarResponse);
         }
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody == null) {
+          return new ApiResponse<IdResponse>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
+        }
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        IdResponse responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<IdResponse>() {});
+        
+
         return new ApiResponse<IdResponse>(
-          localVarResponse.statusCode(),
-          localVarResponse.headers().map(),
-          localVarResponse.body() == null ? null : memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<IdResponse>() {}) // closes the InputStream
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            responseValue
         );
       } finally {
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
+        }
       }
     } catch (IOException e) {
       throw new ApiException(e);
@@ -244,7 +423,7 @@ public class LocationsApi {
     }
   }
 
-  private HttpRequest.Builder createLocationsByPositionsRequestBuilder(PositionsRequest positionsRequest, String language, Integer minimumPopulation) throws ApiException {
+  private HttpRequest.Builder createLocationsByPositionsRequestBuilder(@javax.annotation.Nonnull PositionsRequest positionsRequest, @javax.annotation.Nullable String language, @javax.annotation.Nullable Integer minimumPopulation, Map<String, String> headers) throws ApiException {
     // verify the required parameter 'positionsRequest' is set
     if (positionsRequest == null) {
       throw new ApiException(400, "Missing the required parameter 'positionsRequest' when calling createLocationsByPositions");
@@ -285,6 +464,8 @@ public class LocationsApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -301,8 +482,23 @@ public class LocationsApi {
    * @return IdResponse
    * @throws ApiException if fails to make API call
    */
-  public IdResponse createLocationsByTexts(TextsRequest textsRequest, List<String> countryFilter, String language, Boolean cleanInput) throws ApiException {
-    ApiResponse<IdResponse> localVarResponse = createLocationsByTextsWithHttpInfo(textsRequest, countryFilter, language, cleanInput);
+  public IdResponse createLocationsByTexts(@javax.annotation.Nonnull TextsRequest textsRequest, @javax.annotation.Nullable List<String> countryFilter, @javax.annotation.Nullable String language, @javax.annotation.Nullable Boolean cleanInput) throws ApiException {
+    return createLocationsByTexts(textsRequest, countryFilter, language, cleanInput, null);
+  }
+
+  /**
+   * 
+   * Creates a search request for locations based on a list of single-field text inputs.
+   * @param textsRequest  (required)
+   * @param countryFilter A comma-separated list of country codes according to [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) or [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) if referring to a subdivision. The search will only consider data from countries with these codes. If no filter is specified, all countries are taken into account. However, empty values are not allowed.     If a given subdivision code is not supported, only the first two digits referring to the country are considered in the search and a **warningCode** &#x60;GEOCODING_COUNTRY_FILTER_MODIFIED&#x60; is returned with the response. (optional)
+   * @param language The preferred language for the response formatted according to [ISO-639-1](https://www.loc.gov/standards/iso639-2/php/code_list.php) for languages or [BCP47](https://tools.ietf.org/html/bcp47) for language variants. By default the service uses the language spoken in the country or region of the result. In case the given preferred language is not available in the data, the default language is used. (optional)
+   * @param cleanInput If set to &#x60;true&#x60;, the service will try (for certain countries) to clean the input in a pre-processing step. This helps to expedite processing if the input is a free-form text that may contain garbage. This flag may influence the scores in the response. For more details see the corresponding [concept](./concepts/clean-input).      This parameter is experimental and may change at any time in the future. (optional, default to false)
+   * @param headers Optional headers to include in the request
+   * @return IdResponse
+   * @throws ApiException if fails to make API call
+   */
+  public IdResponse createLocationsByTexts(@javax.annotation.Nonnull TextsRequest textsRequest, @javax.annotation.Nullable List<String> countryFilter, @javax.annotation.Nullable String language, @javax.annotation.Nullable Boolean cleanInput, Map<String, String> headers) throws ApiException {
+    ApiResponse<IdResponse> localVarResponse = createLocationsByTextsWithHttpInfo(textsRequest, countryFilter, language, cleanInput, headers);
     return localVarResponse.getData();
   }
 
@@ -316,8 +512,23 @@ public class LocationsApi {
    * @return ApiResponse&lt;IdResponse&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<IdResponse> createLocationsByTextsWithHttpInfo(TextsRequest textsRequest, List<String> countryFilter, String language, Boolean cleanInput) throws ApiException {
-    HttpRequest.Builder localVarRequestBuilder = createLocationsByTextsRequestBuilder(textsRequest, countryFilter, language, cleanInput);
+  public ApiResponse<IdResponse> createLocationsByTextsWithHttpInfo(@javax.annotation.Nonnull TextsRequest textsRequest, @javax.annotation.Nullable List<String> countryFilter, @javax.annotation.Nullable String language, @javax.annotation.Nullable Boolean cleanInput) throws ApiException {
+    return createLocationsByTextsWithHttpInfo(textsRequest, countryFilter, language, cleanInput, null);
+  }
+
+  /**
+   * 
+   * Creates a search request for locations based on a list of single-field text inputs.
+   * @param textsRequest  (required)
+   * @param countryFilter A comma-separated list of country codes according to [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) or [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) if referring to a subdivision. The search will only consider data from countries with these codes. If no filter is specified, all countries are taken into account. However, empty values are not allowed.     If a given subdivision code is not supported, only the first two digits referring to the country are considered in the search and a **warningCode** &#x60;GEOCODING_COUNTRY_FILTER_MODIFIED&#x60; is returned with the response. (optional)
+   * @param language The preferred language for the response formatted according to [ISO-639-1](https://www.loc.gov/standards/iso639-2/php/code_list.php) for languages or [BCP47](https://tools.ietf.org/html/bcp47) for language variants. By default the service uses the language spoken in the country or region of the result. In case the given preferred language is not available in the data, the default language is used. (optional)
+   * @param cleanInput If set to &#x60;true&#x60;, the service will try (for certain countries) to clean the input in a pre-processing step. This helps to expedite processing if the input is a free-form text that may contain garbage. This flag may influence the scores in the response. For more details see the corresponding [concept](./concepts/clean-input).      This parameter is experimental and may change at any time in the future. (optional, default to false)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;IdResponse&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<IdResponse> createLocationsByTextsWithHttpInfo(@javax.annotation.Nonnull TextsRequest textsRequest, @javax.annotation.Nullable List<String> countryFilter, @javax.annotation.Nullable String language, @javax.annotation.Nullable Boolean cleanInput, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = createLocationsByTextsRequestBuilder(textsRequest, countryFilter, language, cleanInput, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
           localVarRequestBuilder.build(),
@@ -325,16 +536,35 @@ public class LocationsApi {
       if (memberVarResponseInterceptor != null) {
         memberVarResponseInterceptor.accept(localVarResponse);
       }
+      InputStream localVarResponseBody = null;
       try {
         if (localVarResponse.statusCode()/ 100 != 2) {
           throw getApiException("createLocationsByTexts", localVarResponse);
         }
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody == null) {
+          return new ApiResponse<IdResponse>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
+        }
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        IdResponse responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<IdResponse>() {});
+        
+
         return new ApiResponse<IdResponse>(
-          localVarResponse.statusCode(),
-          localVarResponse.headers().map(),
-          localVarResponse.body() == null ? null : memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<IdResponse>() {}) // closes the InputStream
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            responseValue
         );
       } finally {
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
+        }
       }
     } catch (IOException e) {
       throw new ApiException(e);
@@ -345,7 +575,7 @@ public class LocationsApi {
     }
   }
 
-  private HttpRequest.Builder createLocationsByTextsRequestBuilder(TextsRequest textsRequest, List<String> countryFilter, String language, Boolean cleanInput) throws ApiException {
+  private HttpRequest.Builder createLocationsByTextsRequestBuilder(@javax.annotation.Nonnull TextsRequest textsRequest, @javax.annotation.Nullable List<String> countryFilter, @javax.annotation.Nullable String language, @javax.annotation.Nullable Boolean cleanInput, Map<String, String> headers) throws ApiException {
     // verify the required parameter 'textsRequest' is set
     if (textsRequest == null) {
       throw new ApiException(400, "Missing the required parameter 'textsRequest' when calling createLocationsByTexts");
@@ -388,6 +618,8 @@ public class LocationsApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -400,8 +632,19 @@ public class LocationsApi {
    * @param id The id of the batch geocoding request. (required)
    * @throws ApiException if fails to make API call
    */
-  public void deleteLocationsByAddresses(UUID id) throws ApiException {
-    deleteLocationsByAddressesWithHttpInfo(id);
+  public void deleteLocationsByAddresses(@javax.annotation.Nonnull UUID id) throws ApiException {
+    deleteLocationsByAddresses(id, null);
+  }
+
+  /**
+   * 
+   * Deletes the results of a locations search based on a list of structured address inputs.
+   * @param id The id of the batch geocoding request. (required)
+   * @param headers Optional headers to include in the request
+   * @throws ApiException if fails to make API call
+   */
+  public void deleteLocationsByAddresses(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
+    deleteLocationsByAddressesWithHttpInfo(id, headers);
   }
 
   /**
@@ -411,8 +654,20 @@ public class LocationsApi {
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> deleteLocationsByAddressesWithHttpInfo(UUID id) throws ApiException {
-    HttpRequest.Builder localVarRequestBuilder = deleteLocationsByAddressesRequestBuilder(id);
+  public ApiResponse<Void> deleteLocationsByAddressesWithHttpInfo(@javax.annotation.Nonnull UUID id) throws ApiException {
+    return deleteLocationsByAddressesWithHttpInfo(id, null);
+  }
+
+  /**
+   * 
+   * Deletes the results of a locations search based on a list of structured address inputs.
+   * @param id The id of the batch geocoding request. (required)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;Void&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<Void> deleteLocationsByAddressesWithHttpInfo(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = deleteLocationsByAddressesRequestBuilder(id, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
           localVarRequestBuilder.build(),
@@ -420,21 +675,24 @@ public class LocationsApi {
       if (memberVarResponseInterceptor != null) {
         memberVarResponseInterceptor.accept(localVarResponse);
       }
+      InputStream localVarResponseBody = null;
       try {
         if (localVarResponse.statusCode()/ 100 != 2) {
           throw getApiException("deleteLocationsByAddresses", localVarResponse);
         }
-        return new ApiResponse<Void>(
-          localVarResponse.statusCode(),
-          localVarResponse.headers().map(),
-          null
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody != null) {
+          localVarResponseBody.readAllBytes();
+        }
+        return new ApiResponse<>(
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            null
         );
       } finally {
-        // Drain the InputStream
-        while (localVarResponse.body().read() != -1) {
-            // Ignore
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
         }
-        localVarResponse.body().close();
       }
     } catch (IOException e) {
       throw new ApiException(e);
@@ -445,7 +703,7 @@ public class LocationsApi {
     }
   }
 
-  private HttpRequest.Builder deleteLocationsByAddressesRequestBuilder(UUID id) throws ApiException {
+  private HttpRequest.Builder deleteLocationsByAddressesRequestBuilder(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling deleteLocationsByAddresses");
@@ -464,6 +722,8 @@ public class LocationsApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -476,8 +736,19 @@ public class LocationsApi {
    * @param id The id of the batch geocoding request. (required)
    * @throws ApiException if fails to make API call
    */
-  public void deleteLocationsByPositions(UUID id) throws ApiException {
-    deleteLocationsByPositionsWithHttpInfo(id);
+  public void deleteLocationsByPositions(@javax.annotation.Nonnull UUID id) throws ApiException {
+    deleteLocationsByPositions(id, null);
+  }
+
+  /**
+   * 
+   * Deletes the results of a locations search based on a list of positions.
+   * @param id The id of the batch geocoding request. (required)
+   * @param headers Optional headers to include in the request
+   * @throws ApiException if fails to make API call
+   */
+  public void deleteLocationsByPositions(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
+    deleteLocationsByPositionsWithHttpInfo(id, headers);
   }
 
   /**
@@ -487,8 +758,20 @@ public class LocationsApi {
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> deleteLocationsByPositionsWithHttpInfo(UUID id) throws ApiException {
-    HttpRequest.Builder localVarRequestBuilder = deleteLocationsByPositionsRequestBuilder(id);
+  public ApiResponse<Void> deleteLocationsByPositionsWithHttpInfo(@javax.annotation.Nonnull UUID id) throws ApiException {
+    return deleteLocationsByPositionsWithHttpInfo(id, null);
+  }
+
+  /**
+   * 
+   * Deletes the results of a locations search based on a list of positions.
+   * @param id The id of the batch geocoding request. (required)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;Void&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<Void> deleteLocationsByPositionsWithHttpInfo(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = deleteLocationsByPositionsRequestBuilder(id, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
           localVarRequestBuilder.build(),
@@ -496,21 +779,24 @@ public class LocationsApi {
       if (memberVarResponseInterceptor != null) {
         memberVarResponseInterceptor.accept(localVarResponse);
       }
+      InputStream localVarResponseBody = null;
       try {
         if (localVarResponse.statusCode()/ 100 != 2) {
           throw getApiException("deleteLocationsByPositions", localVarResponse);
         }
-        return new ApiResponse<Void>(
-          localVarResponse.statusCode(),
-          localVarResponse.headers().map(),
-          null
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody != null) {
+          localVarResponseBody.readAllBytes();
+        }
+        return new ApiResponse<>(
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            null
         );
       } finally {
-        // Drain the InputStream
-        while (localVarResponse.body().read() != -1) {
-            // Ignore
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
         }
-        localVarResponse.body().close();
       }
     } catch (IOException e) {
       throw new ApiException(e);
@@ -521,7 +807,7 @@ public class LocationsApi {
     }
   }
 
-  private HttpRequest.Builder deleteLocationsByPositionsRequestBuilder(UUID id) throws ApiException {
+  private HttpRequest.Builder deleteLocationsByPositionsRequestBuilder(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling deleteLocationsByPositions");
@@ -540,6 +826,8 @@ public class LocationsApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -552,8 +840,19 @@ public class LocationsApi {
    * @param id The id of the batch geocoding request. (required)
    * @throws ApiException if fails to make API call
    */
-  public void deleteLocationsByTexts(UUID id) throws ApiException {
-    deleteLocationsByTextsWithHttpInfo(id);
+  public void deleteLocationsByTexts(@javax.annotation.Nonnull UUID id) throws ApiException {
+    deleteLocationsByTexts(id, null);
+  }
+
+  /**
+   * 
+   * Deletes the results of a locations search based on a list of single-field text inputs.
+   * @param id The id of the batch geocoding request. (required)
+   * @param headers Optional headers to include in the request
+   * @throws ApiException if fails to make API call
+   */
+  public void deleteLocationsByTexts(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
+    deleteLocationsByTextsWithHttpInfo(id, headers);
   }
 
   /**
@@ -563,8 +862,20 @@ public class LocationsApi {
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> deleteLocationsByTextsWithHttpInfo(UUID id) throws ApiException {
-    HttpRequest.Builder localVarRequestBuilder = deleteLocationsByTextsRequestBuilder(id);
+  public ApiResponse<Void> deleteLocationsByTextsWithHttpInfo(@javax.annotation.Nonnull UUID id) throws ApiException {
+    return deleteLocationsByTextsWithHttpInfo(id, null);
+  }
+
+  /**
+   * 
+   * Deletes the results of a locations search based on a list of single-field text inputs.
+   * @param id The id of the batch geocoding request. (required)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;Void&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<Void> deleteLocationsByTextsWithHttpInfo(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = deleteLocationsByTextsRequestBuilder(id, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
           localVarRequestBuilder.build(),
@@ -572,21 +883,24 @@ public class LocationsApi {
       if (memberVarResponseInterceptor != null) {
         memberVarResponseInterceptor.accept(localVarResponse);
       }
+      InputStream localVarResponseBody = null;
       try {
         if (localVarResponse.statusCode()/ 100 != 2) {
           throw getApiException("deleteLocationsByTexts", localVarResponse);
         }
-        return new ApiResponse<Void>(
-          localVarResponse.statusCode(),
-          localVarResponse.headers().map(),
-          null
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody != null) {
+          localVarResponseBody.readAllBytes();
+        }
+        return new ApiResponse<>(
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            null
         );
       } finally {
-        // Drain the InputStream
-        while (localVarResponse.body().read() != -1) {
-            // Ignore
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
         }
-        localVarResponse.body().close();
       }
     } catch (IOException e) {
       throw new ApiException(e);
@@ -597,7 +911,7 @@ public class LocationsApi {
     }
   }
 
-  private HttpRequest.Builder deleteLocationsByTextsRequestBuilder(UUID id) throws ApiException {
+  private HttpRequest.Builder deleteLocationsByTextsRequestBuilder(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling deleteLocationsByTexts");
@@ -616,6 +930,8 @@ public class LocationsApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -629,8 +945,20 @@ public class LocationsApi {
    * @return LocationsSearchResponse
    * @throws ApiException if fails to make API call
    */
-  public LocationsSearchResponse getLocationsByAddresses(UUID id) throws ApiException {
-    ApiResponse<LocationsSearchResponse> localVarResponse = getLocationsByAddressesWithHttpInfo(id);
+  public LocationsSearchResponse getLocationsByAddresses(@javax.annotation.Nonnull UUID id) throws ApiException {
+    return getLocationsByAddresses(id, null);
+  }
+
+  /**
+   * 
+   * Retrieves the results of a locations search based on a list of structured address inputs.
+   * @param id The id of the batch geocoding request. (required)
+   * @param headers Optional headers to include in the request
+   * @return LocationsSearchResponse
+   * @throws ApiException if fails to make API call
+   */
+  public LocationsSearchResponse getLocationsByAddresses(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
+    ApiResponse<LocationsSearchResponse> localVarResponse = getLocationsByAddressesWithHttpInfo(id, headers);
     return localVarResponse.getData();
   }
 
@@ -641,8 +969,20 @@ public class LocationsApi {
    * @return ApiResponse&lt;LocationsSearchResponse&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<LocationsSearchResponse> getLocationsByAddressesWithHttpInfo(UUID id) throws ApiException {
-    HttpRequest.Builder localVarRequestBuilder = getLocationsByAddressesRequestBuilder(id);
+  public ApiResponse<LocationsSearchResponse> getLocationsByAddressesWithHttpInfo(@javax.annotation.Nonnull UUID id) throws ApiException {
+    return getLocationsByAddressesWithHttpInfo(id, null);
+  }
+
+  /**
+   * 
+   * Retrieves the results of a locations search based on a list of structured address inputs.
+   * @param id The id of the batch geocoding request. (required)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;LocationsSearchResponse&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<LocationsSearchResponse> getLocationsByAddressesWithHttpInfo(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = getLocationsByAddressesRequestBuilder(id, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
           localVarRequestBuilder.build(),
@@ -650,16 +990,35 @@ public class LocationsApi {
       if (memberVarResponseInterceptor != null) {
         memberVarResponseInterceptor.accept(localVarResponse);
       }
+      InputStream localVarResponseBody = null;
       try {
         if (localVarResponse.statusCode()/ 100 != 2) {
           throw getApiException("getLocationsByAddresses", localVarResponse);
         }
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody == null) {
+          return new ApiResponse<LocationsSearchResponse>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
+        }
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        LocationsSearchResponse responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<LocationsSearchResponse>() {});
+        
+
         return new ApiResponse<LocationsSearchResponse>(
-          localVarResponse.statusCode(),
-          localVarResponse.headers().map(),
-          localVarResponse.body() == null ? null : memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<LocationsSearchResponse>() {}) // closes the InputStream
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            responseValue
         );
       } finally {
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
+        }
       }
     } catch (IOException e) {
       throw new ApiException(e);
@@ -670,7 +1029,7 @@ public class LocationsApi {
     }
   }
 
-  private HttpRequest.Builder getLocationsByAddressesRequestBuilder(UUID id) throws ApiException {
+  private HttpRequest.Builder getLocationsByAddressesRequestBuilder(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling getLocationsByAddresses");
@@ -689,6 +1048,8 @@ public class LocationsApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -702,8 +1063,20 @@ public class LocationsApi {
    * @return LocationsSearchStatusResponse
    * @throws ApiException if fails to make API call
    */
-  public LocationsSearchStatusResponse getLocationsByAddressesStatus(UUID id) throws ApiException {
-    ApiResponse<LocationsSearchStatusResponse> localVarResponse = getLocationsByAddressesStatusWithHttpInfo(id);
+  public LocationsSearchStatusResponse getLocationsByAddressesStatus(@javax.annotation.Nonnull UUID id) throws ApiException {
+    return getLocationsByAddressesStatus(id, null);
+  }
+
+  /**
+   * 
+   * Retrieves the status of a locations search based on a list of structured address inputs.
+   * @param id The id of the batch geocoding request. (required)
+   * @param headers Optional headers to include in the request
+   * @return LocationsSearchStatusResponse
+   * @throws ApiException if fails to make API call
+   */
+  public LocationsSearchStatusResponse getLocationsByAddressesStatus(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
+    ApiResponse<LocationsSearchStatusResponse> localVarResponse = getLocationsByAddressesStatusWithHttpInfo(id, headers);
     return localVarResponse.getData();
   }
 
@@ -714,8 +1087,20 @@ public class LocationsApi {
    * @return ApiResponse&lt;LocationsSearchStatusResponse&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<LocationsSearchStatusResponse> getLocationsByAddressesStatusWithHttpInfo(UUID id) throws ApiException {
-    HttpRequest.Builder localVarRequestBuilder = getLocationsByAddressesStatusRequestBuilder(id);
+  public ApiResponse<LocationsSearchStatusResponse> getLocationsByAddressesStatusWithHttpInfo(@javax.annotation.Nonnull UUID id) throws ApiException {
+    return getLocationsByAddressesStatusWithHttpInfo(id, null);
+  }
+
+  /**
+   * 
+   * Retrieves the status of a locations search based on a list of structured address inputs.
+   * @param id The id of the batch geocoding request. (required)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;LocationsSearchStatusResponse&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<LocationsSearchStatusResponse> getLocationsByAddressesStatusWithHttpInfo(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = getLocationsByAddressesStatusRequestBuilder(id, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
           localVarRequestBuilder.build(),
@@ -723,16 +1108,35 @@ public class LocationsApi {
       if (memberVarResponseInterceptor != null) {
         memberVarResponseInterceptor.accept(localVarResponse);
       }
+      InputStream localVarResponseBody = null;
       try {
         if (localVarResponse.statusCode()/ 100 != 2) {
           throw getApiException("getLocationsByAddressesStatus", localVarResponse);
         }
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody == null) {
+          return new ApiResponse<LocationsSearchStatusResponse>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
+        }
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        LocationsSearchStatusResponse responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<LocationsSearchStatusResponse>() {});
+        
+
         return new ApiResponse<LocationsSearchStatusResponse>(
-          localVarResponse.statusCode(),
-          localVarResponse.headers().map(),
-          localVarResponse.body() == null ? null : memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<LocationsSearchStatusResponse>() {}) // closes the InputStream
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            responseValue
         );
       } finally {
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
+        }
       }
     } catch (IOException e) {
       throw new ApiException(e);
@@ -743,7 +1147,7 @@ public class LocationsApi {
     }
   }
 
-  private HttpRequest.Builder getLocationsByAddressesStatusRequestBuilder(UUID id) throws ApiException {
+  private HttpRequest.Builder getLocationsByAddressesStatusRequestBuilder(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling getLocationsByAddressesStatus");
@@ -762,6 +1166,8 @@ public class LocationsApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -775,8 +1181,20 @@ public class LocationsApi {
    * @return LocationsSearchResponse
    * @throws ApiException if fails to make API call
    */
-  public LocationsSearchResponse getLocationsByPositions(UUID id) throws ApiException {
-    ApiResponse<LocationsSearchResponse> localVarResponse = getLocationsByPositionsWithHttpInfo(id);
+  public LocationsSearchResponse getLocationsByPositions(@javax.annotation.Nonnull UUID id) throws ApiException {
+    return getLocationsByPositions(id, null);
+  }
+
+  /**
+   * 
+   * Retrieves the results of a locations search based on a list of positions.
+   * @param id The id of the batch geocoding request. (required)
+   * @param headers Optional headers to include in the request
+   * @return LocationsSearchResponse
+   * @throws ApiException if fails to make API call
+   */
+  public LocationsSearchResponse getLocationsByPositions(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
+    ApiResponse<LocationsSearchResponse> localVarResponse = getLocationsByPositionsWithHttpInfo(id, headers);
     return localVarResponse.getData();
   }
 
@@ -787,8 +1205,20 @@ public class LocationsApi {
    * @return ApiResponse&lt;LocationsSearchResponse&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<LocationsSearchResponse> getLocationsByPositionsWithHttpInfo(UUID id) throws ApiException {
-    HttpRequest.Builder localVarRequestBuilder = getLocationsByPositionsRequestBuilder(id);
+  public ApiResponse<LocationsSearchResponse> getLocationsByPositionsWithHttpInfo(@javax.annotation.Nonnull UUID id) throws ApiException {
+    return getLocationsByPositionsWithHttpInfo(id, null);
+  }
+
+  /**
+   * 
+   * Retrieves the results of a locations search based on a list of positions.
+   * @param id The id of the batch geocoding request. (required)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;LocationsSearchResponse&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<LocationsSearchResponse> getLocationsByPositionsWithHttpInfo(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = getLocationsByPositionsRequestBuilder(id, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
           localVarRequestBuilder.build(),
@@ -796,16 +1226,35 @@ public class LocationsApi {
       if (memberVarResponseInterceptor != null) {
         memberVarResponseInterceptor.accept(localVarResponse);
       }
+      InputStream localVarResponseBody = null;
       try {
         if (localVarResponse.statusCode()/ 100 != 2) {
           throw getApiException("getLocationsByPositions", localVarResponse);
         }
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody == null) {
+          return new ApiResponse<LocationsSearchResponse>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
+        }
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        LocationsSearchResponse responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<LocationsSearchResponse>() {});
+        
+
         return new ApiResponse<LocationsSearchResponse>(
-          localVarResponse.statusCode(),
-          localVarResponse.headers().map(),
-          localVarResponse.body() == null ? null : memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<LocationsSearchResponse>() {}) // closes the InputStream
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            responseValue
         );
       } finally {
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
+        }
       }
     } catch (IOException e) {
       throw new ApiException(e);
@@ -816,7 +1265,7 @@ public class LocationsApi {
     }
   }
 
-  private HttpRequest.Builder getLocationsByPositionsRequestBuilder(UUID id) throws ApiException {
+  private HttpRequest.Builder getLocationsByPositionsRequestBuilder(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling getLocationsByPositions");
@@ -835,6 +1284,8 @@ public class LocationsApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -848,8 +1299,20 @@ public class LocationsApi {
    * @return LocationsSearchStatusResponse
    * @throws ApiException if fails to make API call
    */
-  public LocationsSearchStatusResponse getLocationsByPositionsStatus(UUID id) throws ApiException {
-    ApiResponse<LocationsSearchStatusResponse> localVarResponse = getLocationsByPositionsStatusWithHttpInfo(id);
+  public LocationsSearchStatusResponse getLocationsByPositionsStatus(@javax.annotation.Nonnull UUID id) throws ApiException {
+    return getLocationsByPositionsStatus(id, null);
+  }
+
+  /**
+   * 
+   * Retrieves the status of a locations search based on a list of positions.
+   * @param id The id of the batch geocoding request. (required)
+   * @param headers Optional headers to include in the request
+   * @return LocationsSearchStatusResponse
+   * @throws ApiException if fails to make API call
+   */
+  public LocationsSearchStatusResponse getLocationsByPositionsStatus(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
+    ApiResponse<LocationsSearchStatusResponse> localVarResponse = getLocationsByPositionsStatusWithHttpInfo(id, headers);
     return localVarResponse.getData();
   }
 
@@ -860,8 +1323,20 @@ public class LocationsApi {
    * @return ApiResponse&lt;LocationsSearchStatusResponse&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<LocationsSearchStatusResponse> getLocationsByPositionsStatusWithHttpInfo(UUID id) throws ApiException {
-    HttpRequest.Builder localVarRequestBuilder = getLocationsByPositionsStatusRequestBuilder(id);
+  public ApiResponse<LocationsSearchStatusResponse> getLocationsByPositionsStatusWithHttpInfo(@javax.annotation.Nonnull UUID id) throws ApiException {
+    return getLocationsByPositionsStatusWithHttpInfo(id, null);
+  }
+
+  /**
+   * 
+   * Retrieves the status of a locations search based on a list of positions.
+   * @param id The id of the batch geocoding request. (required)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;LocationsSearchStatusResponse&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<LocationsSearchStatusResponse> getLocationsByPositionsStatusWithHttpInfo(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = getLocationsByPositionsStatusRequestBuilder(id, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
           localVarRequestBuilder.build(),
@@ -869,16 +1344,35 @@ public class LocationsApi {
       if (memberVarResponseInterceptor != null) {
         memberVarResponseInterceptor.accept(localVarResponse);
       }
+      InputStream localVarResponseBody = null;
       try {
         if (localVarResponse.statusCode()/ 100 != 2) {
           throw getApiException("getLocationsByPositionsStatus", localVarResponse);
         }
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody == null) {
+          return new ApiResponse<LocationsSearchStatusResponse>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
+        }
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        LocationsSearchStatusResponse responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<LocationsSearchStatusResponse>() {});
+        
+
         return new ApiResponse<LocationsSearchStatusResponse>(
-          localVarResponse.statusCode(),
-          localVarResponse.headers().map(),
-          localVarResponse.body() == null ? null : memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<LocationsSearchStatusResponse>() {}) // closes the InputStream
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            responseValue
         );
       } finally {
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
+        }
       }
     } catch (IOException e) {
       throw new ApiException(e);
@@ -889,7 +1383,7 @@ public class LocationsApi {
     }
   }
 
-  private HttpRequest.Builder getLocationsByPositionsStatusRequestBuilder(UUID id) throws ApiException {
+  private HttpRequest.Builder getLocationsByPositionsStatusRequestBuilder(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling getLocationsByPositionsStatus");
@@ -908,6 +1402,8 @@ public class LocationsApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -921,8 +1417,20 @@ public class LocationsApi {
    * @return LocationsSearchResponse
    * @throws ApiException if fails to make API call
    */
-  public LocationsSearchResponse getLocationsByTexts(UUID id) throws ApiException {
-    ApiResponse<LocationsSearchResponse> localVarResponse = getLocationsByTextsWithHttpInfo(id);
+  public LocationsSearchResponse getLocationsByTexts(@javax.annotation.Nonnull UUID id) throws ApiException {
+    return getLocationsByTexts(id, null);
+  }
+
+  /**
+   * 
+   * Retrieves the results of a locations search based on a list of single-field text inputs.
+   * @param id The id of the batch geocoding request. (required)
+   * @param headers Optional headers to include in the request
+   * @return LocationsSearchResponse
+   * @throws ApiException if fails to make API call
+   */
+  public LocationsSearchResponse getLocationsByTexts(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
+    ApiResponse<LocationsSearchResponse> localVarResponse = getLocationsByTextsWithHttpInfo(id, headers);
     return localVarResponse.getData();
   }
 
@@ -933,8 +1441,20 @@ public class LocationsApi {
    * @return ApiResponse&lt;LocationsSearchResponse&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<LocationsSearchResponse> getLocationsByTextsWithHttpInfo(UUID id) throws ApiException {
-    HttpRequest.Builder localVarRequestBuilder = getLocationsByTextsRequestBuilder(id);
+  public ApiResponse<LocationsSearchResponse> getLocationsByTextsWithHttpInfo(@javax.annotation.Nonnull UUID id) throws ApiException {
+    return getLocationsByTextsWithHttpInfo(id, null);
+  }
+
+  /**
+   * 
+   * Retrieves the results of a locations search based on a list of single-field text inputs.
+   * @param id The id of the batch geocoding request. (required)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;LocationsSearchResponse&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<LocationsSearchResponse> getLocationsByTextsWithHttpInfo(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = getLocationsByTextsRequestBuilder(id, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
           localVarRequestBuilder.build(),
@@ -942,16 +1462,35 @@ public class LocationsApi {
       if (memberVarResponseInterceptor != null) {
         memberVarResponseInterceptor.accept(localVarResponse);
       }
+      InputStream localVarResponseBody = null;
       try {
         if (localVarResponse.statusCode()/ 100 != 2) {
           throw getApiException("getLocationsByTexts", localVarResponse);
         }
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody == null) {
+          return new ApiResponse<LocationsSearchResponse>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
+        }
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        LocationsSearchResponse responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<LocationsSearchResponse>() {});
+        
+
         return new ApiResponse<LocationsSearchResponse>(
-          localVarResponse.statusCode(),
-          localVarResponse.headers().map(),
-          localVarResponse.body() == null ? null : memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<LocationsSearchResponse>() {}) // closes the InputStream
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            responseValue
         );
       } finally {
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
+        }
       }
     } catch (IOException e) {
       throw new ApiException(e);
@@ -962,7 +1501,7 @@ public class LocationsApi {
     }
   }
 
-  private HttpRequest.Builder getLocationsByTextsRequestBuilder(UUID id) throws ApiException {
+  private HttpRequest.Builder getLocationsByTextsRequestBuilder(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling getLocationsByTexts");
@@ -981,6 +1520,8 @@ public class LocationsApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -994,8 +1535,20 @@ public class LocationsApi {
    * @return LocationsSearchStatusResponse
    * @throws ApiException if fails to make API call
    */
-  public LocationsSearchStatusResponse getLocationsByTextsStatus(UUID id) throws ApiException {
-    ApiResponse<LocationsSearchStatusResponse> localVarResponse = getLocationsByTextsStatusWithHttpInfo(id);
+  public LocationsSearchStatusResponse getLocationsByTextsStatus(@javax.annotation.Nonnull UUID id) throws ApiException {
+    return getLocationsByTextsStatus(id, null);
+  }
+
+  /**
+   * 
+   * Retrieves the status of a locations search based on a list of single-field text inputs.
+   * @param id The id of the batch geocoding request. (required)
+   * @param headers Optional headers to include in the request
+   * @return LocationsSearchStatusResponse
+   * @throws ApiException if fails to make API call
+   */
+  public LocationsSearchStatusResponse getLocationsByTextsStatus(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
+    ApiResponse<LocationsSearchStatusResponse> localVarResponse = getLocationsByTextsStatusWithHttpInfo(id, headers);
     return localVarResponse.getData();
   }
 
@@ -1006,8 +1559,20 @@ public class LocationsApi {
    * @return ApiResponse&lt;LocationsSearchStatusResponse&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<LocationsSearchStatusResponse> getLocationsByTextsStatusWithHttpInfo(UUID id) throws ApiException {
-    HttpRequest.Builder localVarRequestBuilder = getLocationsByTextsStatusRequestBuilder(id);
+  public ApiResponse<LocationsSearchStatusResponse> getLocationsByTextsStatusWithHttpInfo(@javax.annotation.Nonnull UUID id) throws ApiException {
+    return getLocationsByTextsStatusWithHttpInfo(id, null);
+  }
+
+  /**
+   * 
+   * Retrieves the status of a locations search based on a list of single-field text inputs.
+   * @param id The id of the batch geocoding request. (required)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;LocationsSearchStatusResponse&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<LocationsSearchStatusResponse> getLocationsByTextsStatusWithHttpInfo(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = getLocationsByTextsStatusRequestBuilder(id, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
           localVarRequestBuilder.build(),
@@ -1015,16 +1580,35 @@ public class LocationsApi {
       if (memberVarResponseInterceptor != null) {
         memberVarResponseInterceptor.accept(localVarResponse);
       }
+      InputStream localVarResponseBody = null;
       try {
         if (localVarResponse.statusCode()/ 100 != 2) {
           throw getApiException("getLocationsByTextsStatus", localVarResponse);
         }
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody == null) {
+          return new ApiResponse<LocationsSearchStatusResponse>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
+        }
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        LocationsSearchStatusResponse responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<LocationsSearchStatusResponse>() {});
+        
+
         return new ApiResponse<LocationsSearchStatusResponse>(
-          localVarResponse.statusCode(),
-          localVarResponse.headers().map(),
-          localVarResponse.body() == null ? null : memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<LocationsSearchStatusResponse>() {}) // closes the InputStream
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            responseValue
         );
       } finally {
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
+        }
       }
     } catch (IOException e) {
       throw new ApiException(e);
@@ -1035,7 +1619,7 @@ public class LocationsApi {
     }
   }
 
-  private HttpRequest.Builder getLocationsByTextsStatusRequestBuilder(UUID id) throws ApiException {
+  private HttpRequest.Builder getLocationsByTextsStatusRequestBuilder(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling getLocationsByTextsStatus");
@@ -1054,6 +1638,8 @@ public class LocationsApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }

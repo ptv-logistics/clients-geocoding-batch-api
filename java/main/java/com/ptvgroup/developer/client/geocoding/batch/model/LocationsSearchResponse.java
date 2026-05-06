@@ -38,15 +38,16 @@ import com.ptvgroup.developer.client.geocoding.batch.ApiClient;
 @JsonPropertyOrder({
   LocationsSearchResponse.JSON_PROPERTY_RESULTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-10-27T10:23:49.716906276Z[Etc/UTC]", comments = "Generator version: 7.8.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-05-06T09:13:45.824615770Z[Etc/UTC]", comments = "Generator version: 7.22.0")
 public class LocationsSearchResponse {
   public static final String JSON_PROPERTY_RESULTS = "results";
+  @javax.annotation.Nonnull
   private List<LocationsSearchResult> results;
 
   public LocationsSearchResponse() { 
   }
 
-  public LocationsSearchResponse results(List<LocationsSearchResult> results) {
+  public LocationsSearchResponse results(@javax.annotation.Nonnull List<LocationsSearchResult> results) {
     this.results = results;
     return this;
   }
@@ -64,16 +65,16 @@ public class LocationsSearchResponse {
    * @return results
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @JsonProperty(value = JSON_PROPERTY_RESULTS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List<LocationsSearchResult> getResults() {
     return results;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @JsonProperty(value = JSON_PROPERTY_RESULTS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setResults(List<LocationsSearchResult> results) {
+  public void setResults(@javax.annotation.Nonnull List<LocationsSearchResult> results) {
     this.results = results;
   }
 
@@ -112,10 +113,7 @@ public class LocationsSearchResponse {
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
 
   /**
@@ -154,8 +152,8 @@ public class LocationsSearchResponse {
     if (getResults() != null) {
       for (int i = 0; i < getResults().size(); i++) {
         if (getResults().get(i) != null) {
-          joiner.add(getResults().get(i).toUrlQueryString(String.format("%sresults%s%s", prefix, suffix,
-          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+          joiner.add(getResults().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%sresults%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
         }
       }
     }

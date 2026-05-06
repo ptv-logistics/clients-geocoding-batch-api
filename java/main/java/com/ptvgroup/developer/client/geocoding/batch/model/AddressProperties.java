@@ -40,30 +40,36 @@ import com.ptvgroup.developer.client.geocoding.batch.ApiClient;
   AddressProperties.JSON_PROPERTY_STREET,
   AddressProperties.JSON_PROPERTY_HOUSE_NUMBER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-10-27T10:23:49.716906276Z[Etc/UTC]", comments = "Generator version: 7.8.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-05-06T09:13:45.824615770Z[Etc/UTC]", comments = "Generator version: 7.22.0")
 public class AddressProperties {
   public static final String JSON_PROPERTY_COUNTRY = "country";
+  @javax.annotation.Nullable
   private String country;
 
   public static final String JSON_PROPERTY_STATE = "state";
+  @javax.annotation.Nullable
   private String state;
 
   public static final String JSON_PROPERTY_LOCALITY = "locality";
+  @javax.annotation.Nullable
   private String locality;
 
   public static final String JSON_PROPERTY_POSTAL_CODE = "postalCode";
+  @javax.annotation.Nullable
   private String postalCode;
 
   public static final String JSON_PROPERTY_STREET = "street";
+  @javax.annotation.Nullable
   private String street;
 
   public static final String JSON_PROPERTY_HOUSE_NUMBER = "houseNumber";
+  @javax.annotation.Nullable
   private String houseNumber;
 
   public AddressProperties() { 
   }
 
-  public AddressProperties country(String country) {
+  public AddressProperties country(@javax.annotation.Nullable String country) {
     this.country = country;
     return this;
   }
@@ -73,21 +79,21 @@ public class AddressProperties {
    * @return country
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_COUNTRY)
+  @JsonProperty(value = JSON_PROPERTY_COUNTRY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getCountry() {
     return country;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_COUNTRY)
+  @JsonProperty(value = JSON_PROPERTY_COUNTRY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCountry(String country) {
+  public void setCountry(@javax.annotation.Nullable String country) {
     this.country = country;
   }
 
 
-  public AddressProperties state(String state) {
+  public AddressProperties state(@javax.annotation.Nullable String state) {
     this.state = state;
     return this;
   }
@@ -97,21 +103,21 @@ public class AddressProperties {
    * @return state
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonProperty(value = JSON_PROPERTY_STATE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getState() {
     return state;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonProperty(value = JSON_PROPERTY_STATE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setState(String state) {
+  public void setState(@javax.annotation.Nullable String state) {
     this.state = state;
   }
 
 
-  public AddressProperties locality(String locality) {
+  public AddressProperties locality(@javax.annotation.Nullable String locality) {
     this.locality = locality;
     return this;
   }
@@ -121,21 +127,21 @@ public class AddressProperties {
    * @return locality
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LOCALITY)
+  @JsonProperty(value = JSON_PROPERTY_LOCALITY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getLocality() {
     return locality;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LOCALITY)
+  @JsonProperty(value = JSON_PROPERTY_LOCALITY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLocality(String locality) {
+  public void setLocality(@javax.annotation.Nullable String locality) {
     this.locality = locality;
   }
 
 
-  public AddressProperties postalCode(String postalCode) {
+  public AddressProperties postalCode(@javax.annotation.Nullable String postalCode) {
     this.postalCode = postalCode;
     return this;
   }
@@ -145,21 +151,21 @@ public class AddressProperties {
    * @return postalCode
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_POSTAL_CODE)
+  @JsonProperty(value = JSON_PROPERTY_POSTAL_CODE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getPostalCode() {
     return postalCode;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_POSTAL_CODE)
+  @JsonProperty(value = JSON_PROPERTY_POSTAL_CODE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPostalCode(String postalCode) {
+  public void setPostalCode(@javax.annotation.Nullable String postalCode) {
     this.postalCode = postalCode;
   }
 
 
-  public AddressProperties street(String street) {
+  public AddressProperties street(@javax.annotation.Nullable String street) {
     this.street = street;
     return this;
   }
@@ -169,21 +175,21 @@ public class AddressProperties {
    * @return street
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_STREET)
+  @JsonProperty(value = JSON_PROPERTY_STREET, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getStreet() {
     return street;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_STREET)
+  @JsonProperty(value = JSON_PROPERTY_STREET, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStreet(String street) {
+  public void setStreet(@javax.annotation.Nullable String street) {
     this.street = street;
   }
 
 
-  public AddressProperties houseNumber(String houseNumber) {
+  public AddressProperties houseNumber(@javax.annotation.Nullable String houseNumber) {
     this.houseNumber = houseNumber;
     return this;
   }
@@ -193,16 +199,16 @@ public class AddressProperties {
    * @return houseNumber
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_HOUSE_NUMBER)
+  @JsonProperty(value = JSON_PROPERTY_HOUSE_NUMBER, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getHouseNumber() {
     return houseNumber;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_HOUSE_NUMBER)
+  @JsonProperty(value = JSON_PROPERTY_HOUSE_NUMBER, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setHouseNumber(String houseNumber) {
+  public void setHouseNumber(@javax.annotation.Nullable String houseNumber) {
     this.houseNumber = houseNumber;
   }
 
@@ -251,10 +257,7 @@ public class AddressProperties {
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
 
   /**
@@ -291,32 +294,32 @@ public class AddressProperties {
 
     // add `country` to the URL query string
     if (getCountry() != null) {
-      joiner.add(String.format("%scountry%s=%s", prefix, suffix, URLEncoder.encode(ApiClient.valueToString(getCountry()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      joiner.add(String.format(java.util.Locale.ROOT, "%scountry%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCountry()))));
     }
 
     // add `state` to the URL query string
     if (getState() != null) {
-      joiner.add(String.format("%sstate%s=%s", prefix, suffix, URLEncoder.encode(ApiClient.valueToString(getState()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      joiner.add(String.format(java.util.Locale.ROOT, "%sstate%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getState()))));
     }
 
     // add `locality` to the URL query string
     if (getLocality() != null) {
-      joiner.add(String.format("%slocality%s=%s", prefix, suffix, URLEncoder.encode(ApiClient.valueToString(getLocality()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      joiner.add(String.format(java.util.Locale.ROOT, "%slocality%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getLocality()))));
     }
 
     // add `postalCode` to the URL query string
     if (getPostalCode() != null) {
-      joiner.add(String.format("%spostalCode%s=%s", prefix, suffix, URLEncoder.encode(ApiClient.valueToString(getPostalCode()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      joiner.add(String.format(java.util.Locale.ROOT, "%spostalCode%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getPostalCode()))));
     }
 
     // add `street` to the URL query string
     if (getStreet() != null) {
-      joiner.add(String.format("%sstreet%s=%s", prefix, suffix, URLEncoder.encode(ApiClient.valueToString(getStreet()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      joiner.add(String.format(java.util.Locale.ROOT, "%sstreet%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getStreet()))));
     }
 
     // add `houseNumber` to the URL query string
     if (getHouseNumber() != null) {
-      joiner.add(String.format("%shouseNumber%s=%s", prefix, suffix, URLEncoder.encode(ApiClient.valueToString(getHouseNumber()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      joiner.add(String.format(java.util.Locale.ROOT, "%shouseNumber%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getHouseNumber()))));
     }
 
     return joiner.toString();

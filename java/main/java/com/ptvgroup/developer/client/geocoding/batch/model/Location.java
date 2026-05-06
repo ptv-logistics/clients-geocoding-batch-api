@@ -45,30 +45,36 @@ import com.ptvgroup.developer.client.geocoding.batch.ApiClient;
   Location.JSON_PROPERTY_LOCATION_TYPE,
   Location.JSON_PROPERTY_QUALITY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-10-27T10:23:49.716906276Z[Etc/UTC]", comments = "Generator version: 7.8.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-05-06T09:13:45.824615770Z[Etc/UTC]", comments = "Generator version: 7.22.0")
 public class Location {
   public static final String JSON_PROPERTY_REFERENCE_POSITION = "referencePosition";
+  @javax.annotation.Nonnull
   private ReferencePosition referencePosition;
 
   public static final String JSON_PROPERTY_ROAD_ACCESS_POSITION = "roadAccessPosition";
+  @javax.annotation.Nullable
   private RoadAccessPosition roadAccessPosition;
 
   public static final String JSON_PROPERTY_ADDRESS = "address";
+  @javax.annotation.Nonnull
   private Address address;
 
   public static final String JSON_PROPERTY_FORMATTED_ADDRESS = "formattedAddress";
+  @javax.annotation.Nullable
   private String formattedAddress;
 
   public static final String JSON_PROPERTY_LOCATION_TYPE = "locationType";
+  @javax.annotation.Nonnull
   private LocationType locationType;
 
   public static final String JSON_PROPERTY_QUALITY = "quality";
+  @javax.annotation.Nonnull
   private Quality quality;
 
   public Location() { 
   }
 
-  public Location referencePosition(ReferencePosition referencePosition) {
+  public Location referencePosition(@javax.annotation.Nonnull ReferencePosition referencePosition) {
     this.referencePosition = referencePosition;
     return this;
   }
@@ -78,21 +84,21 @@ public class Location {
    * @return referencePosition
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_REFERENCE_POSITION)
+  @JsonProperty(value = JSON_PROPERTY_REFERENCE_POSITION, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public ReferencePosition getReferencePosition() {
     return referencePosition;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_REFERENCE_POSITION)
+  @JsonProperty(value = JSON_PROPERTY_REFERENCE_POSITION, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setReferencePosition(ReferencePosition referencePosition) {
+  public void setReferencePosition(@javax.annotation.Nonnull ReferencePosition referencePosition) {
     this.referencePosition = referencePosition;
   }
 
 
-  public Location roadAccessPosition(RoadAccessPosition roadAccessPosition) {
+  public Location roadAccessPosition(@javax.annotation.Nullable RoadAccessPosition roadAccessPosition) {
     this.roadAccessPosition = roadAccessPosition;
     return this;
   }
@@ -102,21 +108,21 @@ public class Location {
    * @return roadAccessPosition
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ROAD_ACCESS_POSITION)
+  @JsonProperty(value = JSON_PROPERTY_ROAD_ACCESS_POSITION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public RoadAccessPosition getRoadAccessPosition() {
     return roadAccessPosition;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ROAD_ACCESS_POSITION)
+  @JsonProperty(value = JSON_PROPERTY_ROAD_ACCESS_POSITION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRoadAccessPosition(RoadAccessPosition roadAccessPosition) {
+  public void setRoadAccessPosition(@javax.annotation.Nullable RoadAccessPosition roadAccessPosition) {
     this.roadAccessPosition = roadAccessPosition;
   }
 
 
-  public Location address(Address address) {
+  public Location address(@javax.annotation.Nonnull Address address) {
     this.address = address;
     return this;
   }
@@ -126,21 +132,21 @@ public class Location {
    * @return address
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ADDRESS)
+  @JsonProperty(value = JSON_PROPERTY_ADDRESS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Address getAddress() {
     return address;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ADDRESS)
+  @JsonProperty(value = JSON_PROPERTY_ADDRESS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setAddress(Address address) {
+  public void setAddress(@javax.annotation.Nonnull Address address) {
     this.address = address;
   }
 
 
-  public Location formattedAddress(String formattedAddress) {
+  public Location formattedAddress(@javax.annotation.Nullable String formattedAddress) {
     this.formattedAddress = formattedAddress;
     return this;
   }
@@ -150,21 +156,21 @@ public class Location {
    * @return formattedAddress
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FORMATTED_ADDRESS)
+  @JsonProperty(value = JSON_PROPERTY_FORMATTED_ADDRESS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getFormattedAddress() {
     return formattedAddress;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FORMATTED_ADDRESS)
+  @JsonProperty(value = JSON_PROPERTY_FORMATTED_ADDRESS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFormattedAddress(String formattedAddress) {
+  public void setFormattedAddress(@javax.annotation.Nullable String formattedAddress) {
     this.formattedAddress = formattedAddress;
   }
 
 
-  public Location locationType(LocationType locationType) {
+  public Location locationType(@javax.annotation.Nonnull LocationType locationType) {
     this.locationType = locationType;
     return this;
   }
@@ -174,21 +180,21 @@ public class Location {
    * @return locationType
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_LOCATION_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_LOCATION_TYPE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public LocationType getLocationType() {
     return locationType;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LOCATION_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_LOCATION_TYPE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setLocationType(LocationType locationType) {
+  public void setLocationType(@javax.annotation.Nonnull LocationType locationType) {
     this.locationType = locationType;
   }
 
 
-  public Location quality(Quality quality) {
+  public Location quality(@javax.annotation.Nonnull Quality quality) {
     this.quality = quality;
     return this;
   }
@@ -198,16 +204,16 @@ public class Location {
    * @return quality
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_QUALITY)
+  @JsonProperty(value = JSON_PROPERTY_QUALITY, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Quality getQuality() {
     return quality;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_QUALITY)
+  @JsonProperty(value = JSON_PROPERTY_QUALITY, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setQuality(Quality quality) {
+  public void setQuality(@javax.annotation.Nonnull Quality quality) {
     this.quality = quality;
   }
 
@@ -256,10 +262,7 @@ public class Location {
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
 
   /**
@@ -311,12 +314,12 @@ public class Location {
 
     // add `formattedAddress` to the URL query string
     if (getFormattedAddress() != null) {
-      joiner.add(String.format("%sformattedAddress%s=%s", prefix, suffix, URLEncoder.encode(ApiClient.valueToString(getFormattedAddress()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      joiner.add(String.format(java.util.Locale.ROOT, "%sformattedAddress%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getFormattedAddress()))));
     }
 
     // add `locationType` to the URL query string
     if (getLocationType() != null) {
-      joiner.add(String.format("%slocationType%s=%s", prefix, suffix, URLEncoder.encode(ApiClient.valueToString(getLocationType()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      joiner.add(String.format(java.util.Locale.ROOT, "%slocationType%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getLocationType()))));
     }
 
     // add `quality` to the URL query string

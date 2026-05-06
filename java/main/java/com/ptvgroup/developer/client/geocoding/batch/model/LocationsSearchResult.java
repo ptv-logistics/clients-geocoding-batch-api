@@ -42,21 +42,24 @@ import com.ptvgroup.developer.client.geocoding.batch.ApiClient;
   LocationsSearchResult.JSON_PROPERTY_WARNINGS,
   LocationsSearchResult.JSON_PROPERTY_ERROR
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-10-27T10:23:49.716906276Z[Etc/UTC]", comments = "Generator version: 7.8.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-05-06T09:13:45.824615770Z[Etc/UTC]", comments = "Generator version: 7.22.0")
 public class LocationsSearchResult {
   public static final String JSON_PROPERTY_LOCATIONS = "locations";
+  @javax.annotation.Nullable
   private List<Location> locations;
 
   public static final String JSON_PROPERTY_WARNINGS = "warnings";
+  @javax.annotation.Nullable
   private List<Warning> warnings;
 
   public static final String JSON_PROPERTY_ERROR = "error";
+  @javax.annotation.Nullable
   private ErrorResponse error;
 
   public LocationsSearchResult() { 
   }
 
-  public LocationsSearchResult locations(List<Location> locations) {
+  public LocationsSearchResult locations(@javax.annotation.Nullable List<Location> locations) {
     this.locations = locations;
     return this;
   }
@@ -74,21 +77,21 @@ public class LocationsSearchResult {
    * @return locations
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LOCATIONS)
+  @JsonProperty(value = JSON_PROPERTY_LOCATIONS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<Location> getLocations() {
     return locations;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LOCATIONS)
+  @JsonProperty(value = JSON_PROPERTY_LOCATIONS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLocations(List<Location> locations) {
+  public void setLocations(@javax.annotation.Nullable List<Location> locations) {
     this.locations = locations;
   }
 
 
-  public LocationsSearchResult warnings(List<Warning> warnings) {
+  public LocationsSearchResult warnings(@javax.annotation.Nullable List<Warning> warnings) {
     this.warnings = warnings;
     return this;
   }
@@ -106,21 +109,21 @@ public class LocationsSearchResult {
    * @return warnings
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_WARNINGS)
+  @JsonProperty(value = JSON_PROPERTY_WARNINGS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<Warning> getWarnings() {
     return warnings;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WARNINGS)
+  @JsonProperty(value = JSON_PROPERTY_WARNINGS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWarnings(List<Warning> warnings) {
+  public void setWarnings(@javax.annotation.Nullable List<Warning> warnings) {
     this.warnings = warnings;
   }
 
 
-  public LocationsSearchResult error(ErrorResponse error) {
+  public LocationsSearchResult error(@javax.annotation.Nullable ErrorResponse error) {
     this.error = error;
     return this;
   }
@@ -130,16 +133,16 @@ public class LocationsSearchResult {
    * @return error
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ERROR)
+  @JsonProperty(value = JSON_PROPERTY_ERROR, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public ErrorResponse getError() {
     return error;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ERROR)
+  @JsonProperty(value = JSON_PROPERTY_ERROR, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setError(ErrorResponse error) {
+  public void setError(@javax.annotation.Nullable ErrorResponse error) {
     this.error = error;
   }
 
@@ -182,10 +185,7 @@ public class LocationsSearchResult {
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
 
   /**
@@ -224,8 +224,8 @@ public class LocationsSearchResult {
     if (getLocations() != null) {
       for (int i = 0; i < getLocations().size(); i++) {
         if (getLocations().get(i) != null) {
-          joiner.add(getLocations().get(i).toUrlQueryString(String.format("%slocations%s%s", prefix, suffix,
-          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+          joiner.add(getLocations().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%slocations%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
         }
       }
     }
@@ -234,8 +234,8 @@ public class LocationsSearchResult {
     if (getWarnings() != null) {
       for (int i = 0; i < getWarnings().size(); i++) {
         if (getWarnings().get(i) != null) {
-          joiner.add(getWarnings().get(i).toUrlQueryString(String.format("%swarnings%s%s", prefix, suffix,
-          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+          joiner.add(getWarnings().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%swarnings%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
         }
       }
     }
