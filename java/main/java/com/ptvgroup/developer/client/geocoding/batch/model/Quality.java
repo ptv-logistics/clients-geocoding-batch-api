@@ -38,7 +38,7 @@ import com.ptvgroup.developer.client.geocoding.batch.ApiClient;
   Quality.JSON_PROPERTY_TOTAL_SCORE,
   Quality.JSON_PROPERTY_ADDRESS_SCORES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-05-06T09:13:45.824615770Z[Etc/UTC]", comments = "Generator version: 7.22.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-17T10:32:57.911488843Z[Etc/UTC]", comments = "Generator version: 7.22.0")
 public class Quality {
   public static final String JSON_PROPERTY_DISTANCE = "distance";
   @javax.annotation.Nullable
@@ -61,7 +61,7 @@ public class Quality {
   }
 
   /**
-   * The spatial distance in \\[m\\] between the location or the place and the input of a position search.    This is only available for **searchLocationsByPosition** and **searchPlacesByPosition**.
+   * The spatial distance in \\[m\\] between the location or the place and the input of a position search.  This is only available for **searchLocationsByPosition** and **searchPlacesByPosition**.
    * @return distance
    */
   @javax.annotation.Nullable
@@ -85,7 +85,7 @@ public class Quality {
   }
 
   /**
-   * An overall score in \\[%\\] for address searches. 100 percent represents a perfect match between the input and the result.    This is only available for **searchLocationsByText** and **searchLocationsByAddress** results.
+   * An overall score in \\[%\\] for address searches. 100 percent represents a perfect match between the input and the result.  This is only available for **searchLocationsByText** and **searchLocationsByAddress** results.
    * @return totalScore
    */
   @javax.annotation.Nullable

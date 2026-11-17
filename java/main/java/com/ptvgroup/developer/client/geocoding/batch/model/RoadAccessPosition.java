@@ -30,13 +30,13 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import com.ptvgroup.developer.client.geocoding.batch.ApiClient;
 /**
- * A position on or very close to a road that marks the entry to the object. Available only for objects which represent buildings with a complete address and only if present in the data.    The road from which the object can be accessed is not necessarily the road which is closest to the object.
+ * A position on or very close to a road that marks the entry to the object. Available only for objects which represent buildings with a complete address and only if present in the data.  The road from which the object can be accessed is not necessarily the road which is closest to the object.
  */
 @JsonPropertyOrder({
   RoadAccessPosition.JSON_PROPERTY_LATITUDE,
   RoadAccessPosition.JSON_PROPERTY_LONGITUDE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-05-06T09:13:45.824615770Z[Etc/UTC]", comments = "Generator version: 7.22.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-17T10:32:57.911488843Z[Etc/UTC]", comments = "Generator version: 7.22.0")
 public class RoadAccessPosition {
   public static final String JSON_PROPERTY_LATITUDE = "latitude";
   @javax.annotation.Nonnull

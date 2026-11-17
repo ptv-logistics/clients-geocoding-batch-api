@@ -42,7 +42,7 @@ import com.ptvgroup.developer.client.geocoding.batch.ApiClient;
   LocationsSearchResult.JSON_PROPERTY_WARNINGS,
   LocationsSearchResult.JSON_PROPERTY_ERROR
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-05-06T09:13:45.824615770Z[Etc/UTC]", comments = "Generator version: 7.22.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-17T10:32:57.911488843Z[Etc/UTC]", comments = "Generator version: 7.22.0")
 public class LocationsSearchResult {
   public static final String JSON_PROPERTY_LOCATIONS = "locations";
   @javax.annotation.Nullable
