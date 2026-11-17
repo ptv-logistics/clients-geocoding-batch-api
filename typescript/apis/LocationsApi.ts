@@ -71,7 +71,6 @@ export interface CreateLocationsByTextsRequest {
     textsRequest: TextsRequest;
     countryFilter?: Array<string>;
     language?: string;
-    cleanInput?: boolean;
 }
 
 export interface DeleteLocationsByAddressesRequest {
@@ -256,10 +255,6 @@ export class LocationsApi extends runtime.BaseAPI {
 
         if (requestParameters['language'] != null) {
             queryParameters['language'] = requestParameters['language'];
-        }
-
-        if (requestParameters['cleanInput'] != null) {
-            queryParameters['cleanInput'] = requestParameters['cleanInput'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};

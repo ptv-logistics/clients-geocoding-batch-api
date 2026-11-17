@@ -34,16 +34,16 @@ export interface CausingError {
      * * `GENERAL_INVALID_VALUE` - A parameter is set to an invalid value.
      *   * `value` - The invalid value.
      * 
-     * Note that additional errorCodes as well as the **details** of existing errorCodes may be added at any time. Furthermore, the **description** may change at any time.  
+     * Note that additional errorCodes as well as the **details** of existing errorCodes may be added at any time. Furthermore, the **description** may change at any time.
      * 
      * **Error codes for** `GENERAL_RESOURCE_NOT_FOUND`
-     * * `GENERAL_INVALID_ID` - No resource exists for the provided ID.  
-     *   * `value` - The ID for which no resource exists.  
+     * * `GENERAL_INVALID_ID` - No resource exists for the provided ID.
+     *   * `value` - The ID for which no resource exists.
      * 
      * **Error codes for** `GENERAL_VALIDATION_ERROR`
-     * * `GENERAL_UNRECOGNIZED_PARAMETER` - A parameter is unknown.  
-     * * `GENERAL_MISSING_PARAMETER` - A required parameter is missing.  
-     * * `GENERAL_DUPLICATE_PARAMETER` - A parameter is duplicated.  
+     * * `GENERAL_UNRECOGNIZED_PARAMETER` - A parameter is unknown.
+     * * `GENERAL_MISSING_PARAMETER` - A required parameter is missing.
+     * * `GENERAL_DUPLICATE_PARAMETER` - A parameter is duplicated.
      * * `GENERAL_PATTERN_VIOLATED` - The value of a string parameter does not satisfy the required pattern.
      *   * `pattern` - The pattern.
      * * `GENERAL_TYPE_VIOLATED` - The value of a parameter has an invalid type.
@@ -52,11 +52,11 @@ export interface CausingError {
      *   * `format` - The format.
      * * `GENERAL_ENUM_VIOLATED` - The value of a parameter is not one of the specified enum values.
      *   * `enum` - The allowed enum values.
-     * * `GENERAL_MINIMUM_VALUE_VIOLATED` - The minimum value of a parameter is violated.  
-     *   * `minimumValue` - The minimum value (integer or double).  
-     * * `GENERAL_MAXIMUM_VALUE_VIOLATED` - The maximum value of a parameter is violated.  
-     *   * `maximumValue` - The maximum value (integer or double).  
-     * * `GENERAL_MAXIMUM_ITEMS_VIOLATED` - The maximum number of items of an array is violated.  
+     * * `GENERAL_MINIMUM_VALUE_VIOLATED` - The minimum value of a parameter is violated.
+     *   * `minimumValue` - The minimum value (integer or double).
+     * * `GENERAL_MAXIMUM_VALUE_VIOLATED` - The maximum value of a parameter is violated.
+     *   * `maximumValue` - The maximum value (integer or double).
+     * * `GENERAL_MAXIMUM_ITEMS_VIOLATED` - The maximum number of items of an array is violated.
      *   * `maximumItems` - The maximum number of items (integer).
      * @type {string}
      * @memberof CausingError
